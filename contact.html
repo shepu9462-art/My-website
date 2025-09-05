@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Shepu</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* CSS Variables */
+    :root {
+      --bg1: #0f1724;
+      --glass: rgba(255, 255, 255, 0.06);
+      --accent1: #7c3aed;
+      --accent2: #06b6d4;
+      --text: #e6eef8;
+      --muted: #9fb0c8;
+      --card-radius: 18px;
+    }
+
+    /* Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(120deg, #041024 0%, #07142a 40%, #071227 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Layout */
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Card Component */
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      border-radius: var(--card-radius);
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(3, 8, 15, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      max-width: 420px;
+      width: 100%;
+    }
+
+    /* Profile Section */
+    .profile-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 2px solid var(--accent1);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-info h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(45deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .profile-info p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .bio-text {
+      margin-bottom: 1.5rem;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Social Grid */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    /* Social Link */
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .28s ease;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .social-link:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--accent1);
+      box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25);
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-meta {
+      flex: 1;
+    }
+
+    .social-meta small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .social-meta strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Special style for full-width link */
+    .social-link.full-width {
+      grid-column: 1 / -1;
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Stylish Transparent Navigation Menu with Golden Gradient Hover -->
+  <nav style="padding: 15px 0; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: auto; white-space: nowrap;">
+    <a href="index.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Home</a>
+    <a href="contact.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Contact</a>
+    <a href="Apps&Games.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Apps & Games</a>
+    <a href="Buy.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Shop</a>
+    <a href="About.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">About</a>
+  </nav>
+
+  <script>
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        link.style.background = 'linear-gradient(to right, #FFD700, #FFCC33)'; // left-to-right golden gradient
+        link.style.color = '#000';
+        link.style.transform = 'scale(1.1)';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.background = 'transparent';
+        link.style.color = '#fff';
+        link.style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <header class="profile-header">
+        <div class="avatar">
+          <img src="Shepu.jpg">
+        </div>
+        <div class="profile-info">
+          <h1>Shepu — Contact</h1>
+          <p>Designer • Developer • Creator</p>
+        </div>
+      </header>
+
+      <p class="bio-text">
+        আমার সাথে যোগাযোগ করতে নিচের সোশ্যাল বাটনগুলো ব্যবহার করুন।
+      </p>
+
+      <div class="social-grid">
+        <a class="social-link" href="https://www.facebook.com/share/14NngtcLHyy/" target="_blank">
+          <i class="social-icon fab fa-facebook-f" style="background-color: #1877F2;"></i>
+          <div class="social-meta"><small>Facebook</small><strong>মেসেজ করুন</strong></div>
+        </a>
+        <a class="social-link" href="https://wa.me/8801757143424" target="_blank">
+          <i class="social-icon fab fa-whatsapp" style="background-color: #25D366;"></i>
+          <div class="social-meta"><small>WhatsApp</small><strong>চ্যাট শুরু করুন</strong></div>
+        </a>
+        <a class="social-link" href="https://www.instagram.com/shareharjanshepu?igsh=eWd4aHduODNhYzBh" target="_blank">
+          <i class="social-icon fab fa-instagram" style="background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);"></i>
+          <div class="social-meta"><small>Instagram</small><strong>ফলো করুন</strong></div>
+        </a>
+        <a class="social-link" href="https://vm.tiktok.com/ZSHtXQcs1GNuQ-kdmhZ/" target="_blank">
+          <i class="social-icon fab fa-tiktok" style="background-color: #000000;"></i>
+          <div class="social-meta"><small>TikTok</small><strong>ভিডিও দেখুন</strong></div>
+        </a>
+        <a class="social-link full-width" href="https://www.facebook.com/share/19TLZDNgno/" target="_blank">
+          <i class="social-icon fab fa-facebook" style="background-color: #1877F2;"></i>
+          <div class="social-meta"><small>Facebook Page</small><strong>আমার পেজ দেখুন</strong></div>
+        </a>
+      </div>
+
+      <p class="note"></p>
+    </div>
+  </div>
+</body>
+</html>

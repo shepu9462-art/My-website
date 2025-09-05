@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shepu's Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root {
+    --primary-color: #00f2fe;
+    --secondary-color: #f72585;
+    --bg-dark: #0f0a1c;
+    --bg-light: #2c0f4e;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-color: #e0e0e0;
+}
+
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Lato', sans-serif;}
+
+body {
+    background: linear-gradient(135deg, #0f0a1c, #2c0f4e, #1f1b3d);
+    background-size: 600% 600%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-color);
+    padding:20px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-x:hidden;
+}
+
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+h1 {
+    text-align:center;
+    font-family:'Orbitron', sans-serif;
+    color: var(--primary-color);
+    margin-bottom:40px;
+    font-size:3rem;
+    text-shadow: 0 0 15px var(--primary-color);
+    animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from {text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);}
+    to {text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);}
+}
+
+/* Gallery Grid */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    justify-items: center;
+    position: relative;
+    cursor: grab;
+}
+
+/* Game Card */
+.game-card {
+    width: 100%;
+    max-width: 280px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.4s, box-shadow 0.4s;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+}
+
+/* Subtle glow */
+.game-card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    opacity: 0.15;
+    transition:opacity 0.4s;
+    z-index:-1;
+    filter: blur(12px);
+    border-radius: 20px;
+}
+.game-card:hover::before {
+    opacity: 0.25;
+}
+
+.game-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 0 30px var(--primary-color), 0 0 60px var(--secondary-color);
+}
+
+/* Image hover zoom */
+.game-card img {
+    width:100%;
+    height:200px;
+    object-fit: cover;
+    border-radius:15px;
+    transition: transform 0.5s ease, border-color 0.4s;
+    border: 2px solid transparent;
+}
+
+/* PC hover zoom */
+@media (hover: hover) and (pointer: fine){
+    .game-card img:hover {
+        transform: scale(1.1);
+    }
+}
+
+/* Card Info overlay */
+.card-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.4s;
+    font-size: 0.9rem;
+}
+
+/* PC hover show info */
+@media (hover: hover) and (pointer: fine){
+    .game-card:hover .card-info {
+        opacity: 1;
+    }
+}
+
+/* Mobile tap show info */
+@media (hover: none) and (pointer: coarse){
+    .game-card.show-info .card-info {
+        opacity: 1;
+    }
+    .game-card.show-info img {
+        transform: scale(1.05);
+    }
+}
+
+.game-card h2 {
+    margin:20px 0 10px 0;
+    font-size:1.5rem;
+    color: var(--primary-color);
+}
+
+/* Download button animated gradient */
+.download-btn {
+    display:inline-block;
+    padding:12px 25px;
+    background: linear-gradient(270deg, var(--primary-color), var(--secondary-color));
+    background-size: 400% 400%;
+    animation: gradientMove 3s ease infinite;
+    color: var(--bg-dark);
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:bold;
+    transition: all 0.4s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    text-transform:uppercase;
+}
+.download-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color);
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+}
+@keyframes gradientMove {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Responsive */
+@media(max-width:1200px){.gallery{grid-template-columns: repeat(2,1fr);} }
+@media(max-width:768px){
+    h1{font-size:2rem;}
+    .gallery{grid-template-columns:1fr;} /* এক row-এ এক card */
+    .game-card{
+        height: auto; /* flexible height */
+        padding: 15px;
+    }
+    .game-card img{
+        height:180px;
+        border-radius:12px;
+    }
+    .game-card h2{
+        font-size:1.3rem;
+    }
+    .download-btn{
+        padding:10px 20px;
+        font-size:0.9rem;
+    }
+    .card-info{
+        font-size:0.85rem;
+        bottom:15px;
+        left:15px;
+    }
+}
+</style>
+</head>
+<body>
+  <!-- Stylish Transparent Navigation Menu with Golden Gradient Hover -->
+  <nav style="padding: 15px 0; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: auto; white-space: nowrap;">
+    <a href="index.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Home</a>
+    <a href="contact.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Contact</a>
+    <a href="Apps&Games.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Apps & Games</a>
+    <a href="Buy.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Shop</a>
+    <a href="About.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">About</a>
+  </nav>
+
+  <script>
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        link.style.background = 'linear-gradient(to right, #FFD700, #FFCC33)'; // left-to-right golden gradient
+        link.style.color = '#000';
+        link.style.transform = 'scale(1.1)';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.background = 'transparent';
+        link.style.color = '#fff';
+        link.style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body><br>
+
+<body>
+
+<h1><i class="fas fa-gamepad"></i> Shepu's Gallery</h1>
+
+<div class="gallery">
+    <div class="game-card">
+        <img src="Ai.png" alt="Game 1" loading="lazy">
+        <h2>Shepu-OfflineAI</h2>
+        <div class="card-info"></div>
+        <a href="https://drive.google.com/file/d/1jlcZ9bye2nC-DxY27ddUMDJgjGB06KBb/view?usp=drive_link" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+    </div>
+    <div class="game-card">
+        <img src="snake.png" alt="Game 2" loading="lazy">
+        <h2>Snake</h2>
+        <div class="card-info"></div>
+        <a href="https://drive.google.com/file/d/1iNy7OQ4pwLgrRIH5YQhCALsa9tzd8qb3/view?usp=drive_link" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+    </div>
+    <div class="game-card">
+        <img src="pass.png" alt="Game 3" loading="lazy">
+        <h2>Shepu-passGenerator</h2>
+        <div class="card-info"></div>
+        <a href="pass.html" class="download-btn"><i class="fas fa-download"></i> Try Now!</a>
+    </div>
+    <div class="game-card">
+        <img src="Comeing.jpg" alt="Game 4" loading="lazy">
+        <h2>Coming soon</h2>
+        <div class="card-info">Puzzle and strategy game!</div>
+        <a href="#" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+    </div>
+</div>
+
+<script>
+// PC Tilt effect
+const cards = document.querySelectorAll('.game-card');
+cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+        if(window.matchMedia("(hover: hover) and (pointer: fine)").matches){
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.transform = `rotateY(${(x - rect.width/2)/20}deg) rotateX(${(rect.height/2 - y)/20}deg) translateY(-15px) scale(1.03)`;
+        }
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) rotateY(0) rotateX(0) scale(1)';
+    });
+
+    // Mobile tap toggle info
+    card.addEventListener('click', () => {
+        if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
+            card.classList.toggle('show-info');
+        }
+    });
+});
+
+// Click ripple effect
+document.addEventListener('click', function(e){
+    const circle = document.createElement('div');
+    circle.style.position='absolute';
+    circle.style.width=circle.style.height='50px';
+    circle.style.left=(e.pageX-25)+'px';
+    circle.style.top=(e.pageY-25)+'px';
+    circle.style.background='rgba(255,255,255,0.2)';
+    circle.style.borderRadius='50%';
+    circle.style.pointerEvents='none';
+    circle.style.animation='ripple 0.6s ease-out';
+    document.body.appendChild(circle);
+    setTimeout(()=> circle.remove(),600);
+});
+
+// Ripple animation
+const style = document.createElement('style');
+style.innerHTML=`@keyframes ripple {0%{transform:scale(0);opacity:1;}100%{transform:scale(2);opacity:0;}}`;
+document.head.appendChild(style);
+
+</script>
+
+</body>
+</html>
