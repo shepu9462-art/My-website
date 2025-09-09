@@ -6,195 +6,279 @@
 <title>Stunning Password Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <style>
-    /* Body & Background */
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Open Sans', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: radial-gradient(circle at top left, #3a1c71, #d76d77, #ffaf7b);
-        color: #fff;
-        overflow: hidden;
-        animation: background-animate 20s infinite alternate;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #3a1c71, #d76d77, #ffaf7b);
+    color: #fff;
+    overflow-x: hidden;
+    animation: background-animate 20s infinite alternate;
+}
+@keyframes background-animate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    max-width: 450px;
+    width: 90%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+}
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #FFD700;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    letter-spacing: 1px;
+}
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+label {
+    font-size: 1em;
+    font-weight: 500;
+}
+#length {
+    width: 80px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+#length:focus {
+    outline: none;
+    background-color: rgba(255,255,255,0.4);
+    box-shadow: 0 0 8px #FFD700;
+}
+.buttons-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+#generateBtn {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a1a1a;
+}
+#generateBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+#copyBtn {
+    background: linear-gradient(135deg, #1b5e20, #4caf50);
+    color: #fff;
+}
+#copyBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+#smartBtn {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: #fff;
+    margin-top: 15px;
+}
+#smartBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+#checkBtn {
+    background: linear-gradient(135deg, #b71c1c, #f44336);
+    color: #fff;
+    margin-top: 15px;
+}
+#checkBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+#password-display {
+    margin-top: 25px;
+    padding: 15px 20px;
+    min-height: 70px;
+    border-radius: 12px;
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    word-break: break-word;
+    user-select: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+#password-display::before {
+    content: "Click Generate";
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85em;
+    position: absolute;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#password-display.generated::before {
+    content: "";
+}
+.tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+#password-display:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.note {
+    font-size: 0.9em;
+    color: #ddd;
+    margin-top: 15px;
+}
+@media(max-width: 480px){
+    h1 { font-size: 1.8em; }
+    #password-display { font-size: 1.2em; min-height: 60px; }
+    #length { width: 60px; }
+    button { padding: 10px 20px; }
+}
 
-    @keyframes background-animate {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+/* Spinner */
+.spinner {
+  width: 70.4px;
+  height: 70.4px;
+  --clr: rgb(247, 197, 159);
+  --clr-alpha: rgb(247, 197, 159,.1);
+  animation: spinner 1.6s infinite ease;
+  transform-style: preserve-3d;
+  margin: auto;
+  position: absolute;
+}
+.spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 3.5px solid var(--clr);
+}
+.spinner div:nth-of-type(1) { transform: translateZ(-35.2px) rotateY(180deg); }
+.spinner div:nth-of-type(2) { transform: rotateY(-270deg) translateX(50%); transform-origin: top right; }
+.spinner div:nth-of-type(3) { transform: rotateY(270deg) translateX(-50%); transform-origin: center left; }
+.spinner div:nth-of-type(4) { transform: rotateX(90deg) translateY(-50%); transform-origin: top center; }
+.spinner div:nth-of-type(5) { transform: rotateX(-90deg) translateY(50%); transform-origin: bottom center; }
+.spinner div:nth-of-type(6) { transform: translateZ(35.2px); }
+@keyframes spinner {
+  0% { transform: rotate(45deg) rotateX(-25deg) rotateY(25deg); }
+  50% { transform: rotate(45deg) rotateX(-385deg) rotateY(25deg); }
+  100% { transform: rotate(45deg) rotateX(-385deg) rotateY(385deg); }
+}
 
-    /* Container */
-    .container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 35px 25px;
-        text-align: center;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-        max-width: 450px;
-        width: 90%;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .container:hover {
-        transform: scale(1.03);
-        box-shadow: 0 15px 50px rgba(0,0,0,0.5);
-    }
-
-    h1 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.2em;
-        margin-bottom: 20px;
-        color: #FFD700;
-        text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-        letter-spacing: 1px;
-    }
-
-    /* Input */
-    .input-group {
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    label {
-        font-size: 1em;
-        font-weight: 500;
-    }
-
-    #length {
-        width: 80px;
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: none;
-        text-align: center;
-        font-size: 1em;
-        background-color: rgba(255,255,255,0.2);
-        color: #fff;
-        transition: all 0.3s ease;
-    }
-
-    #length:focus {
-        outline: none;
-        background-color: rgba(255,255,255,0.4);
-        box-shadow: 0 0 8px #FFD700;
-    }
-
-    /* Buttons */
-    .buttons-group {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 25px;
-    }
-
-    button {
-        padding: 12px 25px;
-        border: none;
-        border-radius: 12px;
-        font-size: 1em;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    #generateBtn {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        color: #1a1a1a;
-    }
-
-    #generateBtn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.35);
-    }
-
-    #copyBtn {
-        background: linear-gradient(135deg, #1b5e20, #4caf50);
-        color: #fff;
-    }
-
-    #copyBtn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.35);
-    }
-
-    /* Password Display */
-    #password-display {
-        margin-top: 25px;
-        padding: 15px 20px;
-        min-height: 50px;
-        border-radius: 12px;
-        font-size: 1.4em;
-        font-weight: 600;
-        letter-spacing: 2px;
-        word-break: break-word;
-        user-select: none;
-        cursor: pointer;
-        background: rgba(255,255,255,0.05);
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    #password-display::before {
-        content: "Click Generate";
-        color: rgba(255,255,255,0.5);
-        font-size: 0.85em;
-        position: absolute;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-    }
-
-    #password-display.generated::before {
-        content: "";
-    }
-
-    .tooltip {
-        visibility: hidden;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 10px;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.3s;
-        font-size: 0.9em;
-        white-space: nowrap;
-    }
-
-    #password-display:hover .tooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .note {
-        font-size: 0.9em;
-        color: #ddd;
-        margin-top: 15px;
-    }
-
-    /* Mobile Adjustments */
-    @media(max-width: 480px){
-        h1 { font-size: 1.8em; }
-        #password-display { font-size: 1.2em; min-height: 45px; }
-        #length { width: 60px; }
-        button { padding: 10px 20px; }
-    }
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: left;
+}
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+}
+.modal-content button {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: #fff;
+    font-weight: 600;
+    width: 60%;
+}
+.close, .close-check {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #FFD700;
+}
+#strengthBadge {
+    font-weight:600;
+    padding:8px 15px;
+    border-radius:12px;
+    display:inline-block;
+    font-size:1em;
+}
 </style>
 </head>
 <body>
@@ -210,18 +294,67 @@
         <button id="copyBtn">Copy Password</button>
     </div>
     <div id="password-display">
+        <div class="spinner" id="loader" style="display:none;">
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+        </div>
         <div class="tooltip">Click to Copy!</div>
     </div>
     <div class="note">Choose a length between 8 and 64 characters.</div>
 </div>
 
+<!-- Smart Password Button -->
+<button id="smartBtn">Give Information for Smart Password</button>
+<!-- Check Password Button -->
+<button id="checkBtn">Check Your Password</button>
+
+<!-- Smart Password Modal -->
+<div id="smartModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Enter Information</h2>
+        <label for="userName">Your Name</label>
+        <input type="text" id="userName" placeholder="Enter your name">
+        <label for="userLucky">Lucky Number</label>
+        <input type="text" id="userLucky" placeholder="Enter lucky number">
+        <button id="modalGenerate">Generate Password</button>
+    </div>
+</div>
+
+<!-- Check Password Modal -->
+<div id="checkModal" class="modal">
+    <div class="modal-content">
+        <span class="close-check">&times;</span>
+        <h2>Check Password Strength</h2>
+        <label for="checkInput">Enter Password</label>
+        <input type="text" id="checkInput" placeholder="Type your password here">
+        <div id="strengthBadge">Strength: -</div>
+    </div>
+</div>
+
 <script>
 const generateBtn = document.getElementById('generateBtn');
 const copyBtn = document.getElementById('copyBtn');
+const smartBtn = document.getElementById('smartBtn');
+const checkBtn = document.getElementById('checkBtn');
 const lengthInput = document.getElementById('length');
 const passwordDisplay = document.getElementById('password-display');
+const loader = document.getElementById('loader');
 
-// Generate password
+// Modal Smart Password
+const smartModal = document.getElementById('smartModal');
+const closeModal = document.querySelector('.close');
+const modalGenerate = document.getElementById('modalGenerate');
+const userNameInput = document.getElementById('userName');
+const userLuckyInput = document.getElementById('userLucky');
+
+// Modal Check Password
+const checkModal = document.getElementById('checkModal');
+const closeCheck = document.querySelector('.close-check');
+const checkInput = document.getElementById('checkInput');
+const strengthBadge = document.getElementById('strengthBadge');
+
+// Generate Password
 function generatePassword() {
     const length = parseInt(lengthInput.value, 10);
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
@@ -229,15 +362,22 @@ function generatePassword() {
         alert("Please enter a valid password length (8-64).");
         return;
     }
-    let password = '';
-    for(let i=0; i<length; i++){
-        password += chars[Math.floor(Math.random()*chars.length)];
-    }
-    passwordDisplay.innerText = password;
-    passwordDisplay.classList.add('generated');
+    passwordDisplay.innerText = "";
+    passwordDisplay.appendChild(loader);
+    loader.style.display = "block";
+
+    setTimeout(() => {
+        let password = '';
+        for(let i=0; i<length; i++){
+            password += chars[Math.floor(Math.random()*chars.length)];
+        }
+        loader.style.display = "none";
+        passwordDisplay.innerText = password;
+        passwordDisplay.classList.add('generated');
+    }, 1500);
 }
 
-// Copy password
+// Copy Password
 function copyPassword() {
     const text = passwordDisplay.innerText;
     if(!text || text === "Click Generate"){
@@ -249,7 +389,79 @@ function copyPassword() {
         .catch(() => alert("Failed to copy."));
 }
 
-// Events
+// Smart Password
+smartBtn.addEventListener('click', () => smartModal.style.display = 'flex');
+closeModal.addEventListener('click', () => smartModal.style.display = 'none');
+window.addEventListener('click', e => { if(e.target === smartModal) smartModal.style.display = 'none'; });
+
+modalGenerate.addEventListener('click', () => {
+    const name = userNameInput.value.trim();
+    const lucky = userLuckyInput.value.trim();
+    const length = parseInt(lengthInput.value, 10);
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+
+    if(!name || !lucky){
+        alert("Please fill all fields!");
+        return;
+    }
+    if(length < 8 || length > 64 || isNaN(length)){
+        alert("Please enter a valid password length (8-64).");
+        return;
+    }
+
+    let base = name + lucky;
+    let password = '';
+    for(let i=0; i<length; i++){
+        if(i < base.length){
+            password += base[i];
+        } else {
+            password += chars[Math.floor(Math.random()*chars.length)];
+        }
+    }
+
+    passwordDisplay.innerText = password;
+    passwordDisplay.classList.add('generated');
+    smartModal.style.display = 'none';
+    userNameInput.value = '';
+    userLuckyInput.value = '';
+});
+
+// Check Password
+checkBtn.addEventListener('click', () => checkModal.style.display = 'flex');
+closeCheck.addEventListener('click', () => checkModal.style.display = 'none');
+window.addEventListener('click', e => { if(e.target === checkModal) checkModal.style.display = 'none'; });
+
+checkInput.addEventListener('input', () => {
+    const pwd = checkInput.value.trim();
+    let score = 0;
+    if(pwd.length >= 8) score++;
+    if(/[A-Z]/.test(pwd)) score++;
+    if(/[a-z]/.test(pwd)) score++;
+    if(/[0-9]/.test(pwd)) score++;
+    if(/[!@#$%^&*()_+]/.test(pwd)) score++;
+
+    let text = '';
+    let color = '';
+
+    if(score <= 2){
+        text = 'Weak';
+        color = '#e53935';
+    } else if(score === 3 || score === 4){
+        text = 'Medium';
+        color = '#fb8c00';
+    } else if(score === 5){
+        text = 'Strong';
+        color = '#43a047';
+    } else {
+        text = '-';
+        color = 'gray';
+    }
+
+    strengthBadge.innerText = `Strength: ${text}`;
+    strengthBadge.style.backgroundColor = color + '33';
+    strengthBadge.style.color = color;
+});
+
 generateBtn.addEventListener('click', generatePassword);
 copyBtn.addEventListener('click', copyPassword);
 passwordDisplay.addEventListener('click', copyPassword);
