@@ -144,6 +144,135 @@
   </script>
 </body>
 <body>
+   <!-- Shepu Stylish Intro -->
+<div id="shepu-loader">
+  <div class="loader-content">
+    <h1 class="shepu-text">Shepu</h1>
+    <div class="cube-wrapper">
+      <div class="cube">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+      <div class="cube-shadow"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Fullscreen loader */
+  #shepu-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+
+  #shepu-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-content {
+    text-align: center;
+  }
+
+  /* Shepu text */
+  .shepu-text {
+    font-size: 3rem;
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: bold;
+    color: #61dafb;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeInOut 2s ease-in-out forwards;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0; transform: scale(1); }
+  }
+
+  /* Cube wrapper */
+  .cube-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+  }
+
+  /* Transparent Cube */
+  .cube {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spin 3s infinite linear;
+    margin: auto;
+  }
+
+  .cube .face {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    border: 2px solid #61dafb;
+    box-shadow: 0 0 15px rgba(97, 218, 251, 0.7);
+  }
+
+  .cube .front  { transform: rotateY(0deg) translateZ(40px); }
+  .cube .back   { transform: rotateY(180deg) translateZ(40px); }
+  .cube .right  { transform: rotateY(90deg) translateZ(40px); }
+  .cube .left   { transform: rotateY(-90deg) translateZ(40px); }
+  .cube .top    { transform: rotateX(90deg) translateZ(40px); }
+  .cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+  @keyframes spin {
+    from { transform: rotateX(-30deg) rotateY(-45deg); }
+    to { transform: rotateX(-30deg) rotateY(315deg); }
+  }
+
+  /* Cube shadow */
+  .cube-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(97,218,251,0.4), transparent);
+    filter: blur(12px);
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
+    50% { transform: translateX(-50%) scaleX(1.2); opacity: 0.3; }
+  }
+</style>
+
+<script>
+  // Hide loader with smooth fade-out after 2 seconds
+  window.addEventListener("load", function(){
+    setTimeout(() => {
+      document.getElementById("shepu-loader").classList.add("fade-out");
+    }, 2000);
+  });
+</script>
+
 
 <div class="about-card">
     <h1>About Me</h1>
@@ -184,3 +313,4 @@
 
 </body>
 </html>
+
