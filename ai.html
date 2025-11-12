@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shepu-AI - Modern AI Chat (Feature Rich)</title>
+    <link rel="icon" href="Shepu.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --main-bg: #09090b;
+            --chat-bg: #17171a;
+            --header-footer-bg: #1e1e21;
+            --primary-color: #5555ff;
+            --secondary-color: #f0f0f0;
+            --user-msg-bg: #303040;
+            --bot-msg-bg: #1e1e21;
+            --text-color: #f0f0f0;
+            --input-border: #444;
+            --modern-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        body.light-mode {
+            --main-bg: #f9f9f9;
+            --chat-bg: #ffffff;
+            --header-footer-bg: #e9e9e9;
+            --primary-color: #5555ff;
+            --secondary-color: #111;
+            --user-msg-bg: #e0f2ff;
+            --bot-msg-bg: #f5f5f5;
+            --text-color: #111;
+            --input-border: #ccc;
+            --modern-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background: var(--main-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            background-image: radial-gradient(circle at center, var(--chat-bg) 0%, var(--main-bg) 80%);
+            transition: background 0.3s;
+        }
+
+        .chat-box {
+            width: 95%;
+            max-width: 650px;
+            height: 90vh;
+            max-height: 800px;
+            background: var(--chat-bg);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--modern-shadow);
+            border: 1px solid var(--input-border);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+            /* সাজেশন বক্সের প্যারেন্ট হিসেবে অবস্থান সেট করা হলো */
+            position: relative;
+        }
+
+        .chat-header {
+            display: flex;
+            padding: 15px 20px;
+            background: var(--header-footer-bg);
+            border-bottom: 1px solid var(--input-border);
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s;
+        }
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+        }
+        .header-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .chat-header span {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 0;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .live-chat-toggle {
+            width: 35px;
+            height: 35px;
+            min-width: 35px;
+            margin-left: 15px;
+            background: #4caf50;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .live-chat-toggle:hover {
+            background: #66bb6a;
+        }
+        .live-chat-toggle.recording {
+            background: #f44336;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+        .live-chat-toggle.recording i {
+            color: white;
+        }
+        .live-chat-toggle i {
+            color: white;
+            font-size: 16px;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--chat-bg);
+        }
+        .messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .messages::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: 3px;
+        }
+        .messages::-webkit-scrollbar-track {
+            background: var(--chat-bg);
+        }
+
+        .msg {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            max-width: 80%;
+            line-height: 1.6;
+            word-wrap: break-word;
+            animation: messageIn 0.3s ease-out;
+            box-shadow: none;
+            font-weight: 400;
+            font-size: 16px;
+            white-space: pre-wrap;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        @keyframes messageIn {
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .user {
+            background: var(--user-msg-bg);
+            color: var(--text-color);
+            margin-left: auto;
+        }
+
+        .bot {
+            background: var(--bot-msg-bg);
+            color: var(--text-color);
+            margin-right: auto;
+            max-width: 100%;
+            padding: 15px 25px;
+        }
+
+        .bot strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .typing-indicator {
+            background: var(--bot-msg-bg);
+            color: var(--text-color);
+            font-style: italic;
+            opacity: 1;
+            padding: 10px 25px;
+            width: fit-content;
+            border-radius: 8px;
+            box-shadow: none;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            animation: dot-pulse 1.4s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-pulse {
+            0%, 80%, 100% { transform: scale(0); opacity: 0; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- INPUT AREA AND SUGGESTION STYLES --- */
+        .input-area {
+            /* position: relative; এটি এখন প্রয়োজন নেই, কারণ #suggestionBox বাইরে চলে গেছে */
+            display: flex;
+            padding: 15px 20px;
+            background: var(--header-footer-bg);
+            box-shadow: var(--modern-shadow);
+            border-top: 1px solid var(--input-border);
+            align-items: flex-end;
+            transition: background 0.3s;
+        }
+
+        #suggestionBox {
+            /* এখন প্যারেন্ট .chat-box, তাই bottom পজিশনিং ঠিক করা হয়েছে */
+            position: absolute;
+            bottom: 70px;
+            left: 20px;
+            right: 80px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--bot-msg-bg);
+            border-radius: 8px;
+            box-shadow: var(--modern-shadow);
+            z-index: 10;
+            display: none;
+            padding: 5px 0;
+            border: 1px solid var(--input-border);
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 15px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .suggestion-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        body.light-mode .suggestion-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        body.light-mode #suggestionBox {
+            border: 1px solid var(--input-border);
+        }
+
+
+        textarea {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid var(--input-border);
+            border-radius: 25px;
+            outline: none;
+            background: var(--bot-msg-bg);
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-weight: 400;
+            resize: none;
+            min-height: 50px;
+            max-height: 200px;
+            margin-right: 10px;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(85, 85, 255, 0.4);
+            background: var(--bot-msg-bg);
+        }
+
+        button#sendButton {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 18px;
+            transition: background 0.2s, transform 0.1s, opacity 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button#sendButton i {
+             margin-left: 2px;
+        }
+
+        button#sendButton:hover {
+            background: #7777ff;
+        }
+
+        button#sendButton:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="chat-box">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <img src="Shepu.ico" alt="Shepu AI Logo" class="header-logo">
+                <span>Shepu-AI</span>
+                <button id="liveChatToggle" class="live-chat-toggle" title="Live Chat (Voice Mode)">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+            <i class="fas fa-sun theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode"></i>
+        </div>
+
+        <div class="messages" id="messages">
+        </div>
+
+        <div id="suggestionBox">
+        </div>
+
+        <div class="input-area">
+            <textarea id="userInput" placeholder="Message Shepu-AI..." rows="1"></textarea>
+            <button onclick="sendMessage()" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+    const liveChatToggle = document.getElementById('liveChatToggle');
+    const userInput = document.getElementById("userInput");
+    const suggestionBox = document.getElementById("suggestionBox");
+    let isLiveChatActive = false;
+    let recognition;
+
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = 'bn-BD';
+
+        recognition.onresult = function(event) {
+            let finalTranscript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript;
+                }
+            }
+            if (finalTranscript.trim().length > 0) {
+                handleVoiceInput(finalTranscript.trim());
+            }
+        };
+
+        recognition.onerror = function(event) {
+            if (event.error !== 'no-speech') {
+                toggleLiveChat(false);
+                speakText("দুঃখিত, ভয়েস ইনপুটে সমস্যা হয়েছে।");
+            }
+        };
+
+        recognition.onstart = function() {
+            liveChatToggle.classList.add('recording');
+            liveChatToggle.querySelector('i').className = 'fas fa-stop';
+            userInput.placeholder = "👂 Listening... Speak now!";
+        };
+
+        recognition.onend = function() {
+            if (isLiveChatActive) {
+                recognition.start();
+            } else {
+                window.speechSynthesis.cancel();
+                recognition.stop();
+            }
+        };
+
+    } else {
+        liveChatToggle.style.display = 'none';
+    }
+
+    function speakText(text) {
+        if (!isLiveChatActive) {
+            window.speechSynthesis.cancel();
+            return;
+        }
+
+        const speech = new SpeechSynthesisUtterance();
+        speech.text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+        speech.lang = 'bn-IN';
+        speech.volume = 1;
+        speech.rate = 1;
+        speech.pitch = 1;
+        window.speechSynthesis.speak(speech);
+    }
+
+    function toggleLiveChat(state) {
+        if (recognition) {
+            isLiveChatActive = state;
+            if (state) {
+                recognition.start();
+                speakText("লাইভ চ্যাট মোড চালু হয়েছে। আপনি এখন কথা বলতে পারেন।");
+            } else {
+                window.speechSynthesis.cancel();
+                recognition.stop();
+            }
+        }
+    }
+
+    liveChatToggle.addEventListener('click', () => {
+        toggleLiveChat(!isLiveChatActive);
+    });
+
+    function handleVoiceInput(question) {
+        if (!isLiveChatActive) return;
+
+        addMessage(question + " 🎤", "user");
+        const answer = findAnswer(question);
+        addMessage(answer, "bot");
+        speakText(answer);
+    }
+
+    const originalSendMessage = sendMessage;
+    sendMessage = function() {
+        if (isLiveChatActive) {
+            alert("লাইভ চ্যাট মোড চালু আছে। টেক্সট ইনপুট ব্যবহার করতে এটি বন্ধ করুন।");
+            return;
+        }
+        originalSendMessage();
+    }
+
+    let database = "";
+    let questionBank = [];
+    let idfScores = {};
+    const welcomeMessages = [
+        "ডাটা লোড সম্পূর্ণ! আমি একটি উন্নত AI। আপনি যা জানতে চান, জিজ্ঞাসা করুন।",
+        "সব ডেটা অ্যাক্সেস করা হয়েছে! Shepu-AI এখন প্রস্তুত। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
+        "সিস্টেম অনলাইন! আমি আপনার জন্য নতুন এবং শক্তিশালী উত্তর দিতে প্রস্তুত।",
+        "লোডিং সফল! আমি আপনার সাথে কথা বলার জন্য তৈরি। আপনার প্রথম প্রশ্ন কী?"
+    ];
+
+    async function loadFile(filename) {
+        try {
+            const res = await fetch(filename + '?t=' + new Date().getTime());
+            // HTTP 200 OK চেক করা
+            if (!res.ok) {
+                 console.error(`Error loading file ${filename}: HTTP status ${res.status}`);
+                 return "";
+            }
+            return await res.text();
+        } catch(e) {
+            // নেটওয়ার্ক বা CORS এরর হ্যান্ডেল করা
+            console.error(`Network or file error for ${filename}:`, e);
+            return "";
+        }
+    }
+
+    function preprocess(text) {
+        return text.trim().toLowerCase().replace(/[?.,!]/g, '').replace(/\s+/g, ' ');
+    }
+
+    function calculateIDF(documents) {
+        const idf = {};
+        const N = documents.length;
+
+        const docFreq = {};
+        for (const doc of documents) {
+            const uniqueWords = new Set(doc.split(' ').filter(w => w.length > 1));
+            for (const word of uniqueWords) {
+                docFreq[word] = (docFreq[word] || 0) + 1;
+            }
+        }
+
+        for (const word in docFreq) {
+            idf[word] = Math.log(N / (docFreq[word] + 1));
+        }
+        return idf;
+    }
+
+    async function loadAllFiles() {
+        const msgBox = document.getElementById("messages");
+
+        const initialLoadingMsg = document.createElement("div");
+        initialLoadingMsg.className = "msg bot typing-indicator";
+        initialLoadingMsg.innerHTML = 'Initializing Core <span></span><span></span><span></span>';
+        msgBox.appendChild(initialLoadingMsg);
+
+        // নিশ্চিত করুন ফাইল নামগুলি ঠিক আছে
+        const bar = await loadFile("bar.txt");
+        const golpo = await loadFile("golpo.txt");
+        const newFile = await loadFile("new.txt");
+        const book = await loadFile("book.txt");
+
+        database = [bar, golpo, newFile, book].join("\n");
+        const lines = database.split("\n").filter(line => line.includes(";"));
+
+        const documents = [];
+        questionBank = [];
+
+        for (const line of lines) {
+            const parts = line.split(";");
+            if (parts.length < 2) continue;
+
+            const db_q = preprocess(parts[0]);
+            const a = parts.slice(1).join(';').trim();
+
+            if (db_q) {
+                documents.push(db_q);
+                questionBank.push({
+                    original_q: parts[0].trim(),
+                    processed_q: db_q,
+                    answer: a
+                });
+            }
+        }
+
+        if (questionBank.length > 0) {
+            idfScores = calculateIDF(documents);
+        } else {
+             console.warn("Question Bank is empty! Check your .txt files and delimiters (semicolon ';').");
+        }
+
+
+        initialLoadingMsg.remove();
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        addMessage(randomWelcome, "bot");
+    }
+    loadAllFiles();
+
+
+    function findAnswer(question) {
+        const cleanedQuestion = preprocess(question);
+        const q_words = cleanedQuestion.split(' ').filter(w => w.length > 1);
+
+        if (q_words.length === 0) {
+            return "দুঃখিত, আপনার প্রশ্নটি খুব ছোট বা স্পষ্ট নয়।";
+        }
+
+        if (questionBank.length === 0) {
+            return "দুঃখিত, ডেটাবেস লোড হয়নি। দয়া করে ফাইলগুলো চেক করুন।";
+        }
+
+
+        let bestAnswer = "দুঃখিত, এই প্রশ্নটির জন্য আমার কাছে কোনো উপযুক্ত তথ্য নেই। আপনি কি অন্যভাবে জিজ্ঞাসা করতে পারেন?";
+        let maxSimilarityScore = 0;
+
+        const queryVector = {};
+        let queryVectorSum = 0;
+        for(const word of q_words) {
+             const idf = idfScores[word] || 0.001;
+             queryVector[word] = (queryVector[word] || 0) + idf;
+             queryVectorSum += idf;
+        }
+
+        for (const item of questionBank) {
+            const [db_q, a] = [item.processed_q, item.answer];
+
+            if (db_q === cleanedQuestion) {
+                return a;
+            }
+
+            let intersection_idf_sum = 0;
+            const db_q_words = db_q.split(' ').filter(w => w.length > 1);
+
+            for(const q_word in queryVector) {
+                if(db_q_words.includes(q_word)) {
+                    intersection_idf_sum += queryVector[q_word];
+                }
+            }
+
+            const db_vector_sum = db_q_words.reduce((sum, word) => sum + (idfScores[word] || 0.001), 0);
+            const union_idf_sum = queryVectorSum + db_vector_sum - intersection_idf_sum;
+
+            let finalSimilarityScore = 0;
+            if (union_idf_sum > 0) {
+                finalSimilarityScore = intersection_idf_sum / union_idf_sum;
+            }
+
+            if (finalSimilarityScore > maxSimilarityScore) {
+                maxSimilarityScore = finalSimilarityScore;
+                bestAnswer = a;
+            }
+        }
+
+        const THRESHOLD = 0.25;
+
+        if (maxSimilarityScore >= THRESHOLD) {
+             const matchPercent = (maxSimilarityScore * 100).toFixed(0);
+             return `**[${matchPercent}% কাছাকাছি উত্তর]** ` + bestAnswer;
+        }
+
+        return bestAnswer;
+    }
+
+    function addMessage(text, sender) {
+        const msgBox = document.getElementById("messages");
+        const div = document.createElement("div");
+        div.className = "msg " + sender;
+
+        const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        div.innerHTML = formattedText;
+
+        msgBox.appendChild(div);
+        msgBox.scrollTop = msgBox.scrollHeight;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById("userInput");
+        let question = input.value.trim();
+        if (!question) return;
+
+        // মেসেজ সেন্ড হওয়ার সাথে সাথে সাজেশন বন্ধ করা
+        suggestionBox.style.display = 'none';
+
+        addMessage(question, "user");
+        input.value = "";
+        input.style.height = '50px';
+        input.focus();
+
+        const botTyping = document.createElement("div");
+        botTyping.className = "msg bot typing-indicator";
+        botTyping.innerHTML = 'Shepu-AI is thinking <span></span><span></span><span></span>';
+        document.getElementById("messages").appendChild(botTyping);
+        document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+
+
+        const delay = Math.floor(Math.random() * (1200 - 500 + 1)) + 500;
+
+        setTimeout(() => {
+            const answer = findAnswer(question);
+
+            botTyping.remove();
+            addMessage(answer, "bot");
+
+        }, delay);
+    }
+
+    // *** লাইভ সাজেশন লজিক (Input Event Handler) ***
+    userInput.addEventListener('input', function() {
+        // Auto-resize
+        this.style.height = '50px';
+        this.style.height = (this.scrollHeight) + 'px';
+
+        const query = this.value.trim().toLowerCase();
+
+        if (query.length < 2 || questionBank.length === 0) { // ডেটা লোড না হলে বা ২ অক্ষরের কম হলে বন্ধ
+            suggestionBox.style.display = 'none';
+            suggestionBox.innerHTML = '';
+            return;
+        }
+
+        // প্রসেসড প্রশ্নে মিল খুঁজে বের করা
+        const suggestions = questionBank
+            .filter(item => item.processed_q.includes(query))
+            .slice(0, 5);
+
+        if (suggestions.length > 0) {
+            suggestionBox.innerHTML = '';
+            suggestions.forEach(item => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = item.original_q;
+
+                suggestionItem.onclick = () => {
+                    userInput.value = item.original_q;
+                    suggestionBox.style.display = 'none';
+                    userInput.focus();
+                    userInput.dispatchEvent(new Event('input')); // ইনপুট ইভেন্ট ট্রিগার করা যাতে রিসাইজ হয়
+                };
+                suggestionBox.appendChild(suggestionItem);
+            });
+            suggestionBox.style.display = 'block';
+        } else {
+            suggestionBox.style.display = 'none';
+        }
+    });
+
+
+    // *** কি-বোর্ড শর্টকাট ***
+    userInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+
+    // *** থিম টগল লজিক ***
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    if (!localStorage.getItem('theme')) {
+        localStorage.setItem('theme', 'dark-mode');
+    }
+    body.className = localStorage.getItem('theme');
+
+    function updateThemeIcon(theme) {
+        if (theme === 'dark-mode') {
+            themeToggle.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            themeToggle.classList.replace('fa-moon', 'fa-sun');
+        }
+    }
+    updateThemeIcon(body.className);
+
+
+    themeToggle.addEventListener('click', function() {
+        if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('theme', 'light-mode');
+        } else {
+            body.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('theme', 'dark-mode');
+        }
+        updateThemeIcon(body.className);
+    });
+
+    </script>
+</body>
+</html>

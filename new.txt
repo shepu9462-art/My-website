@@ -1,0 +1,26 @@
+verry good;thank you dear(Shepu)  .
+tomake kon programing language diye banano hoise;Python diye Shepu amake banaice  .
+bolo toh;question ta abar koro piz  .
+ofline;ha  .
+ki;kicu na  .
+bj;jkj  .
+kono vabe na;ok  .
+nuakhali;pagol naki  .
+musfika parvin tanna ke;মুসফিকা পারভিন তান্না শিপুর একমাত্র আদরের ছোট বোন  .
+md ramjan biswas ke;মোঃ রমজান বিশ্বাস আমার সৃষ্টকারীর সব, শিপুর প্রিয় বাবা  .
+mst shahanaz parvin ke;শাহনাজ পারভিন আমার মালিকের সব, শিপুর প্রিয় আম্মু  .
+aj din ta koto valo;তাহলে চল শিপুকে সাথা নিয়ে ঘুরতে যাই  .
+valo lagce na;তোমার ভালো লাগছে না শিপুর ও মন টা অনে খারাপ হইয়ে গেলো , বল তোমার জন্য  কি কর‍তে পারি?  .
+ohh assa tai;ha goo tai  .
+ekta help lagbe;শিপু আপনাকে সব সময় সাহায্য করার জন্য প্রস্তুত  .
+একটা সাহায্য লাগবে;শিপু আপনাকে সব সময় সাহায্য করার জন্য প্রস্তুত
+help me:শিপু আপনাকে সব সময় সাহায্য করার জন্য প্রস্তুত
+hello everyone;hello how can i help you  .
+tomar gola meye der moto kn?;karon ami shepu er banano ekta ai  .
+good mroning;good morning dear
+tumi to dekci onek valo math korte paro;donnobad tomake . # শেখা সময়: 2025-09-19 16:54:11
+wow;wow . # শেখা সময়: 2025-09-19 16:56:39
+ik;ik abar ki . # শেখা সময়: 2025-09-28 12:05:37
+ami python sikhte cai;1# Variable → ডেটা রাখার জন্য নাম ব্যবহার হয়, যেমন x=10, name="Shipu"    2# Data Types → int পূর্ণ সংখ্যা, float দশমিক, str লেখা, bool সত্য-মিথ্যা, list একাধিক ডেটা, tuple অপরিবর্তনীয় লিস্ট, dict key-value, set শুধু ইউনিক ভ্যালু    3# Print → স্ক্রিনে আউটপুট দেখাতে ব্যবহৃত হয়, যেমন print("Hello")    4# Input → ইউজারের কাছ থেকে ডেটা নিতে input() ব্যবহার হয়    5# Comments → কোডে ব্যাখ্যা লিখতে # ব্যবহার হয়, Python এগুলো চালায় না    6# Operators → + যোগ, - বিয়োগ, * গুণ, / ভাগ, % ভাগশেষ, ** ঘাত    7# If-Else → শর্ত অনুযায়ী ভিন্ন কাজ করানো হয়, যেমন if x>5 else    8# Loops → একই কাজ বারবার করার জন্য for আর while ব্যবহার হয়    9# Functions → def দিয়ে আলাদা কাজ বানানো যায়, যেমন def add(a,b): return a+b    10# List → একাধিক ডেটা রাখা যায় এবং পরিবর্তন করা যায়, যেমন [1,2,3]    11# Tuple → লিস্টের মতো কিন্তু অপরিবর্তনীয়, যেমন (1,2,3)    12# Dictionary → key-value আকারে ডেটা রাখা হয়, যেমন {"name":"Shipu"}    13# Set → শুধু ইউনিক ভ্যালু রাখে, যেমন {1,2,3}    14# String Methods → স্ট্রিং এর উপর কাজ করা যায় যেমন "shipu".upper(), len("shipu")    15# Type Casting → এক টাইপ থেকে আরেক টাইপে রূপান্তর করা যায়, যেমন int("5")    16# Exception Handling → try-except দিয়ে এরর হ্যান্ডল করা হয়    17# Class & Object → class দিয়ে অবজেক্ট বানানো হয়, যেমন class Dog: pass    18# File Read/Write → open("a.txt","w") দিয়ে লেখা যায়, open("a.txt","r") দিয়ে পড়া যায়oma go;omg!!! . # শেখা সময়: 2025-09-29 13:35:24
+1 theke 100 porjonto bolo;Banglai lekho piz . # শেখা সময়: 2025-09-29 13:36:33
+ext;say exit . # শেখা সময়: 2025-09-29 13:38:24
