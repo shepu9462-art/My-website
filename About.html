@@ -126,6 +126,104 @@
     <a href="Buy.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Shop</a>
     <a href="About.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">About</a>
   </nav>
+   <a href="ai.html" id="shepu-ai-button">
+    <div class="ai-core">
+        <div class="smart-chat-icon">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </div>
+</a>
+
+<style>
+#shepu-ai-button {
+    width: 46px;
+    height: 46px;
+    background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
+    border: 2px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0,238,255,0.8), 0 0 35px rgba(183,0,255,0.7), inset 0 0 10px rgba(255,255,255,0.3);
+    animation: floatUp 3s ease-in-out infinite;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 9999;
+    transition: 0.4s ease;
+}
+
+#shepu-ai-button:hover {
+    transform: scale(1.25) rotate(8deg);
+    box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
+}
+
+.ai-core {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 12px #fff, inset 0 0 10px rgba(255,255,255,0.8);
+    animation: corePulse 2.8s infinite alternate;
+}
+
+.smart-chat-icon {
+    width: 18px;
+    height: 15px;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 2px 3px;
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 0 10px #fff, 0 0 20px #00eaff;
+}
+
+.smart-chat-icon::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    box-shadow: 0 0 8px #fff;
+}
+
+.smart-chat-icon .line {
+    height: 2px;
+    width: 70%;
+    background: #fff;
+    border-radius: 2px;
+}
+
+.smart-chat-icon .line:nth-child(2) { width: 60%; }
+.smart-chat-icon .line:nth-child(3) { width: 45%; }
+
+@keyframes floatUp {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes corePulse {
+    0% { box-shadow: 0 0 10px #fff, inset 0 0 6px rgba(255,255,255,0.7); }
+    100% { box-shadow: 0 0 14px #fff, inset 0 0 10px rgba(255,255,255,1); }
+}
+</style>
+
 
   <script>
     const links = document.querySelectorAll('nav a');
@@ -313,5 +411,6 @@
 
 </body>
 </html>
+
 
 
