@@ -264,8 +264,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 10px rgba(0,238,255,0.8), 0 0 35px rgba(183,0,255,0.7), inset 0 0 10px rgba(255,255,255,0.3);
-    animation: floatUp 3s ease-in-out infinite;
+    /* Removed the constant box-shadow */
+    /* Removed the floatUp animation */
     cursor: pointer;
     text-decoration: none;
     z-index: 9999;
@@ -274,6 +274,7 @@ h1 {
 
 #shepu-ai-button:hover {
     transform: scale(1.25) rotate(8deg);
+    /* Kept the hover glow effect */
     box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
 }
 
@@ -284,8 +285,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 12px #fff, inset 0 0 10px rgba(255,255,255,0.8);
-    animation: corePulse 2.8s infinite alternate;
+    /* Removed the constant box-shadow */
+    /* Removed the corePulse animation */
 }
 
 .smart-chat-icon {
@@ -300,7 +301,7 @@ h1 {
     gap: 2px;
     padding: 2px 3px;
     background: rgba(255,255,255,0.08);
-    box-shadow: 0 0 10px #fff, 0 0 20px #00eaff;
+    /* Removed the constant box-shadow */
 }
 
 .smart-chat-icon::after {
@@ -314,7 +315,7 @@ h1 {
     border-bottom: 2px solid #fff;
     border-radius: 2px;
     transform: rotate(-45deg);
-    box-shadow: 0 0 8px #fff;
+    /* Removed the constant box-shadow */
 }
 
 .smart-chat-icon .line {
@@ -327,17 +328,8 @@ h1 {
 .smart-chat-icon .line:nth-child(2) { width: 60%; }
 .smart-chat-icon .line:nth-child(3) { width: 45%; }
 
-@keyframes floatUp {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-
-@keyframes corePulse {
-    0% { box-shadow: 0 0 10px #fff, inset 0 0 6px rgba(255,255,255,0.7); }
-    100% { box-shadow: 0 0 14px #fff, inset 0 0 10px rgba(255,255,255,1); }
-}
+/* Removed the floatUp and corePulse keyframes as they are no longer used */
 </style>
-
     <!-- Shepu Stylish Intro -->
 <div id="shepu-loader">
   <div class="loader-content">
@@ -551,6 +543,7 @@ document.head.appendChild(style);
 
 </body>
 </html>
+
 
 
 
