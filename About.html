@@ -1,409 +1,417 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>About Me - Shipu</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Lato',sans-serif; }
-    body, html { height:100%; overflow-x:hidden; }
+/* ---------- Basic ---------- */
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+html,body{height:100%; overflow-x: hidden; }
 
-    /* Animated Gradient Background */
-    body {
-        background: linear-gradient(-45deg, #0f0f1c, #1a1a2f, #0f1a1c, #1a0f2f);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-    }
-    @keyframes gradientBG {
-        0%{background-position:0% 50%;}
-        50%{background-position:100% 50%;}
-        100%{background-position:0% 50%;}
-    }
+/* ** কাস্টম কার্সার সেট করা হয়েছে ** */
+body{
+  background:linear-gradient(-45deg,#050814,#071022,#08101a,#15041f);
+  background-size:400% 400%;
+  animation:bgMove 14s ease infinite;
+  color:#eaf6ff;
+  -webkit-font-smoothing:antialiased;
+  cursor: pointer; /* মাউসের লোগো পরিবর্তন করা হয়েছে */
+}
+a, button, .hamburger, .socials a, .download { cursor: pointer; }
 
-    /* Particle Effect */
-    .particle {
-        position: absolute;
-        width: 6px; height: 6px;
-        background: #00ffff;
-        border-radius: 50%;
-        opacity: 0.4;
-        animation: float 12s linear infinite;
-        z-index:0;
-    }
-    @keyframes float {
-        0% { transform: translateY(0) translateX(0); }
-        50% { transform: translateY(-50px) translateX(30px); }
-        100% { transform: translateY(0) translateX(0); }
-    }
+@keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-    /* About Card */
-    .about-card {
-        position: relative;
-        z-index: 1;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(10px);
-        border-radius: 25px;
-        max-width:900px;
-        margin:80px auto;
-        padding:40px 30px;
-        box-shadow:0 0 25px #00ffff;
-        text-align:center;
-        color:#fff;
-    }
+/* ---------- NAVBAR ---------- */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(10px);background:rgba(255,255,255,0.03);
+  border-bottom:1px solid rgba(0,255,255,0.06);z-index:9999;
+}
+.logo{
+    font-family:'Orbitron';font-size:20px;color:#7ff;letter-spacing:2px;
+    text-shadow:0 0 5px rgba(127, 255, 255, 0.4);
+    transition:text-shadow 0.3s ease;
+}
+.logo:hover {
+    text-shadow:0 0 15px #7ff, 0 0 30px #0af;
+}
 
-    .about-card h1 {
-        font-family:'Orbitron',sans-serif;
-        font-size:3rem;
-        color:#00ffff;
-        text-shadow:0 0 5px #00ffff;
-        margin-bottom:25px;
-        letter-spacing:2px;
-    }
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a{
+    color:#eaf6ff;text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px;
+    transition:all .35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+/* INTERACTIVE NAV LINK (Transform/Translate removed for stability) */
+.nav-links a:hover{
+    color:#000;
+    background:linear-gradient(90deg,#7ff,#0af);
+    box-shadow:0 0 16px rgba(0,255,255,0.4), 0 0 40px rgba(0,255,255,0.1);
+}
+.hamburger{display:none;color:#7ff;font-size:22px;cursor:pointer}
 
-    .profile-img {
-        width:150px; height:150px;
-        border-radius:50%;
-        border:2px solid #00ffff;
-        object-fit:cover;
-        margin:0 auto 25px;
-        box-shadow:0 0 12px #00ffff;
-        transition: transform 0.5s, box-shadow 0.5s;
-    }
-    .profile-img:hover { transform:scale(1.05); box-shadow:0 0 18px #00ffff; }
+/* mobile menu */
+.mobile-menu{
+  position:fixed;right:-100%;top:0;height:100%;width:76%;
+  max-width:320px;background:rgba(6,8,15,0.97);backdrop-filter:blur(16px);
+  padding-top:84px;padding-left:24px;padding-right:24px;transition:.35s;z-index:9998;
+}
+.mobile-menu a{display:block;color:#eaf6ff;text-decoration:none;padding:14px 8px;border-radius:10px;font-weight:600; transition:all .25s}
+.mobile-menu a:hover{color:#000;background:#7ff}
 
-    .info {
-        font-size:1.1rem;
-        line-height:1.8;
-        margin-bottom:30px;
-    }
-    .info span { font-weight:bold; color:#00ffff; }
+/* ---------- INTRO LOADER (cube) ---------- */
+#intro{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:transparent;z-index:9000;pointer-events:none;
+}
+.shepu-title{font-family:'Orbitron';font-size:48px;color:#7ff;text-shadow:0 0 18px rgba(0,255,255,0.25);margin-bottom:26px;pointer-events:auto}
+.cube-wrap{perspective:900px;width:120px;height:120px;pointer-events:auto}
+.cube{
+  width:120px;height:120px;position:relative;transform-style:preserve-3d;
+  animation:spinCube 4s linear infinite;
+}
+.cube .face{
+  position:absolute;width:120px;height:120px;background:linear-gradient(180deg,rgba(0,255,255,0.06),rgba(179,0,255,0.03));
+  border:2px solid rgba(127,255,255,0.55);
+  box-shadow:0 0 26px rgba(0,255,255,0.12), inset 0 0 18px rgba(127,255,255,0.03);
+  border-radius:8px;
+}
+.cube .front { transform: translateZ(60px) }
+.cube .back  { transform: rotateY(180deg) translateZ(60px) }
+.cube .right { transform: rotateY(90deg) translateZ(60px) }
+.cube .left  { transform: rotateY(-90deg) translateZ(60px) }
+.cube .top   { transform: rotateX(90deg) translateZ(60px) }
+.cube .bottom{ transform: rotateX(-90deg) translateZ(60px) }
+@keyframes spinCube{ from{transform:rotateX(-20deg) rotateY(0)} to{transform:rotateX(-20deg) rotateY(360deg)} }
 
-    .social-links a {
-        color:#fff; margin:0 15px;
-        font-size:1.5rem;
-        transition:0.3s; text-shadow:0 0 3px #00ffff;
-    }
-    .social-links a:hover {
-        color:#00ffff; transform:scale(1.2); text-shadow:0 0 12px #00ffff;
-    }
+/* hide intro after load by JS (opacity transition) */
+#intro.hidden{opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
 
-    .download-btn {
-        display:inline-block;
-        padding:12px 30px; margin-top:20px;
-        color:#00ffff;
-        border:2px solid #00ffff;
-        border-radius:50px;
-        font-weight:bold;
-        text-decoration:none;
-        transition:0.3s;
-        text-shadow:0 0 3px #00ffff;
-    }
-    .download-btn:hover {
-        background:#00ffff;
-        color:#0f0f1c;
-        box-shadow:0 0 18px #00ffff;
-    }
+/* ---------- MAIN WRAPPER / ABOUT CARD ---------- */
+.container{width:94%;max-width:1080px;margin:120px auto 80px}
 
-    /* Responsive */
-    @media (max-width:600px){
-        .about-card { padding:30px 20px; margin:50px 10px; }
-        .about-card h1 { font-size:2.2rem; }
-        .profile-img { width:120px; height:120px; }
-        .info { font-size:1rem; }
-        .social-links a { font-size:1.3rem; margin:0 10px; }
-        .download-btn { padding:10px 25px; font-size:0.95rem; }
-    }
+/* Interactive Card Base */
+.about-card{
+  /* Using a pseudo-element for the dynamic glow effect */
+  position: relative;
+  z-index: 10;
+  background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));
+  border-radius:18px;padding:34px 30px;backdrop-filter:blur(10px);
+  box-shadow:0 8px 30px rgba(0,0,0,0.5), 0 0 28px rgba(0,255,255,0.04);
+  transition:all .5s ease;
+  overflow: hidden;
+}
+
+/* Pseudo-element for Mouse-following Glow */
+.about-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 255, 0.15) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+    z-index: -1;
+}
+.about-card:hover::before {
+    opacity: 1;
+}
+
+
+/* layout */
+.top-grid{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.left-col{flex:0 0 200px;text-align:center}
+.right-col{flex:1;min-width:260px}
+
+/* profile image */
+.profile-img{
+  width:170px;height:170px;border-radius:50%;object-fit:cover;
+  display:block;margin:0 auto;border:3px solid rgba(0,255,255,0.8);
+  box-shadow:0 0 24px rgba(0,255,255,0.15), 0 6px 24px rgba(0,0,0,0.5);
+  transition:transform .3s ease;
+}
+.profile-img:hover {
+    transform: rotate(3deg) scale(1.03);
+}
+
+/* name & tagline */
+.name{font-family:'Orbitron';font-size:28px;color:#7ff;text-align:center;margin-top:12px}
+.tagline{font-size:0.98rem;color:#dff7ff;text-align:center;margin-top:6px}
+
+/* right column content */
+.about-text{line-height:1.7;color:#e6f9ff;margin-bottom:14px;font-size:1rem}
+.highlight{color:#7ff;font-weight:700}
+
+/* small info list */
+.info-grid{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+.info-item{
+    background:rgba(255,255,255,0.02);padding:10px 14px;border-radius:10px;font-size:0.95rem;
+    min-width:150px;text-align:center;
+    transition:background .3s, transform .2s;
+}
+.info-item:hover {
+    background:rgba(0,255,255,0.05);
+    transform:translateY(-2px);
+}
+
+/* Skills area */
+.skills{margin-top:20px}
+.skill-row{margin-bottom:14px; transition:transform .3s ease, box-shadow .3s ease;}
+/* INTERACTIVE SKILL ROW */
+.skill-row:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.skill-title{display:flex;justify-content:space-between;font-weight:600;margin-bottom:6px}
+.skill-bar{height:12px;background:#09121a;border-radius:12px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+.skill-fill{
+  height:100%;width:0%;border-radius:12px;
+  background:linear-gradient(90deg,#00eaff,#0055ff,#b300ff);
+  box-shadow:0 0 16px rgba(0,255,255,0.12);
+  transition:width 1.8s cubic-bezier(.2,.9,.2,1);
+}
+
+/* hobbies & contact & download */
+.extras{display:flex;gap:18px;margin-top:22px;flex-wrap:wrap}
+.card-mini{
+    flex:1;min-width:220px;background:rgba(255,255,255,0.02);padding:14px;border-radius:12px;
+    transition:transform .4s ease, box-shadow .3s ease;
+    transform-style: preserve-3d;
+}
+/* INTERACTIVE MINI CARD (FLIP - Rotations removed for stability) */
+.card-mini:hover {
+    transform: scale(1.02); /* Only scale for stability */
+    box-shadow:0 0 20px rgba(127,255,255,0.3);
+}
+.card-mini h4{color:#7ff;margin-bottom:6px}
+.socials{display:flex;gap:10px;margin-top:8px}
+.socials a{
+    display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;
+    background:rgba(255,255,255,0.02);color:#eaf6ff;text-decoration:none;
+    transition:all .3s ease;
+}
+/* INTERACTIVE SOCIALS */
+.socials a:hover{
+    background:#7ff;
+    color:#04111a;
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 4px 15px rgba(0,255,255,0.4);
+}
+
+.download{
+    display:inline-block;margin-top:12px;padding:10px 18px;border-radius:999px;
+    background:linear-gradient(90deg,#00eaff,#7f3cff);color:#04111a;text-decoration:none;
+    font-weight:700;box-shadow:0 6px 20px rgba(127,255,255,0.06);
+    transition:all .3s ease;
+}
+/* INTERACTIVE DOWNLOAD BUTTON (Scale removed for stability) */
+.download:hover{
+    /* transform:scale(1.05); Scale removed for stability */
+    box-shadow:0 8px 25px rgba(127,255,255,0.2), 0 0 30px rgba(0,255,255,0.1);
+    opacity: 0.9;
+}
+
+/* footer small note */
+.note{margin-top:18px;font-size:0.9rem;color:#bfefff}
+
+/* responsive */
+@media(max-width:860px){
+  .top-grid{flex-direction:column;align-items:center;text-align:center}
+  .left-col{flex-basis:auto}
+  .right-col{width:100%}
+  .about-card::before {
+    opacity: 0 !important;
+  }
+}
+@media(max-width:720px){
+  .hamburger{display:block}
+  .nav-links{display:none}
+  .container{margin-top:110px}
+  .mobile-menu{width:80%}
+}
 </style>
 </head>
 <body>
-  <!-- Stylish Transparent Navigation Menu with Golden Gradient Hover -->
-  <nav style="padding: 15px 0; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: auto; white-space: nowrap;">
-    <a href="index.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Home</a>
-    <a href="contact.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Contact</a>
-    <a href="Apps&Games.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Apps & Games</a>
-    <a href="Buy.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Shop</a>
-    <a href="About.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">About</a>
+
+<header class="navbar">
+  <div class="logo">SHEPU</div>
+
+  <nav class="nav-links" aria-label="main navigation">
+    <a href="index.html">Home</a>
+    <a href="Apps&Games.html">Apps & Games</a>
+    <a href="Buy.html">Shop</a>
+    <a href="Contact.html">Contact</a>
+    <a href="About.html">About</a>
   </nav>
-  
-  <script>
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        link.style.background = 'linear-gradient(to right, #FFD700, #FFCC33)'; // left-to-right golden gradient
-        link.style.color = '#000';
-        link.style.transform = 'scale(1.1)';
-      });
-      link.addEventListener('mouseleave', () => {
-        link.style.background = 'transparent';
-        link.style.color = '#fff';
-        link.style.transform = 'scale(1)';
-      });
-    });
-  </script>
-</body>
-<body>
-   <a href="ai.html" id="shepu-ai-button">
-    <div class="ai-core">
-        <div class="smart-chat-icon">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
-        </div>
-    </div>
-</a>
 
-<style>
-#shepu-ai-button {
-    width: 46px;
-    height: 46px;
-    background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
-    border: 2px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(6px);
-    position: fixed;
-    top: 120px;
-    right: 20px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Removed the constant box-shadow */
-    /* Removed the floatUp animation */
-    cursor: pointer;
-    text-decoration: none;
-    z-index: 9999;
-    transition: 0.4s ease;
-}
+  <div class="hamburger" id="hambBtn" onclick="openMobile()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+</header>
 
-#shepu-ai-button:hover {
-    transform: scale(1.25) rotate(8deg);
-    /* Kept the hover glow effect */
-    box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
-}
+<div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+  <a href="#" onclick="closeMobile()">Close ✕</a>
+  <a href="index.html">Home</a>
+  <a href="Apps&Games.html">Apps & Games</a>
+  <a href="Buy.html">Shop</a>
+  <a href="Contact.html">Contact</a>
+  <a href="About.html">About</a>
+</div>
 
-.ai-core {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Removed the constant box-shadow */
-    /* Removed the corePulse animation */
-}
-
-.smart-chat-icon {
-    width: 18px;
-    height: 15px;
-    border-radius: 6px;
-    border: 2px solid #fff;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2px;
-    padding: 2px 3px;
-    background: rgba(255,255,255,0.08);
-    /* Removed the constant box-shadow */
-}
-
-.smart-chat-icon::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 5px;
-    width: 6px;
-    height: 6px;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    border-radius: 2px;
-    transform: rotate(-45deg);
-    /* Removed the constant box-shadow */
-}
-
-.smart-chat-icon .line {
-    height: 2px;
-    width: 70%;
-    background: #fff;
-    border-radius: 2px;
-}
-
-.smart-chat-icon .line:nth-child(2) { width: 60%; }
-.smart-chat-icon .line:nth-child(3) { width: 45%; }
-
-/* Removed the floatUp and corePulse keyframes as they are no longer used */
-</style>
-   <!-- Shepu Stylish Intro -->
-<div id="shepu-loader">
-  <div class="loader-content">
-    <h1 class="shepu-text">Shepu</h1>
-    <div class="cube-wrapper">
-      <div class="cube">
-        <div class="face front"></div>
-        <div class="face back"></div>
-        <div class="face right"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
-      </div>
-      <div class="cube-shadow"></div>
+<section id="intro">
+  <div class="shepu-title">SHEPU</div>
+  <div class="cube-wrap">
+    <div class="cube" aria-hidden="true">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
     </div>
   </div>
-</div>
+</section>
 
-<style>
-  /* Fullscreen loader */
-  #shepu-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0d1117;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    transition: opacity 1s ease, visibility 1s ease;
-  }
+<main class="container">
+  <article class="about-card" id="aboutCard">
 
-  #shepu-loader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-  }
+    <div class="top-grid">
+      <div class="left-col">
+        <img src="Shepu.jpg" alt="Shipu Photo" class="profile-img" id="profileImage" onerror="this.src='yourphoto.jpg'">
+        <div class="name">Shareharjan Shepu</div>
+        <div class="tagline">Web Developer • AI Enthusiast • Student</div>
+      </div>
 
-  .loader-content {
-    text-align: center;
-  }
+      <div class="right-col">
+        <p class="about-text">
+          <strong class="highlight">Hello! I'm Shepu</strong> — a passionate developer and tech enthusiast from Bangladesh.
+          I love creating stylish websites and exploring new technologies. My goal is to make modern, responsive, and user-friendly web applications.
+        </p>
 
-  /* Shepu text */
-  .shepu-text {
-    font-size: 3rem;
-    font-family: "Trebuchet MS", sans-serif;
-    font-weight: bold;
-    color: #61dafb;
-    letter-spacing: 2px;
-    margin-bottom: 50px;
-    opacity: 0;
-    animation: fadeInOut 1s ease-in-out forwards;
-  }
+        <div class="info-grid">
+          <div class="info-item"><strong>Location</strong><div>Bangladesh</div></div>
+          <div class="info-item"><strong>Languages</strong><div>Bangla, English</div></div>
+        </div>
 
-  @keyframes fadeInOut {
-    0% { opacity: 0; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.05); }
-    100% { opacity: 0; transform: scale(1); }
-  }
+        <p class="about-text" style="margin-top:12px">
+          <strong>Aim:</strong> To build useful web & AI projects that help people and grow my skills.
+          <strong>Interests:</strong> Coding, Gaming, Learning New Things.
+        </p>
+      </div>
+    </div>
 
-  /* Cube wrapper */
-  .cube-wrapper {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: auto;
-  }
+    <section class="skills" aria-label="skills">
+      <h3 style="color:#7ff;margin-top:12px">Skills</h3>
 
-  /* Transparent Cube */
-  .cube {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: spin 3s infinite linear;
-    margin: auto;
-  }
+      <div class="skill-row">
+        <div class="skill-title"><span>HTML</span><span>95%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-value="95%"></div></div>
+      </div>
 
-  .cube .face {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: transparent;
-    border: 2px solid #61dafb;
-    box-shadow: 0 0 15px rgba(97, 218, 251, 0.7);
-  }
+      <div class="skill-row">
+        <div class="skill-title"><span>CSS</span><span>90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-value="90%"></div></div>
+      </div>
 
-  .cube .front  { transform: rotateY(0deg) translateZ(40px); }
-  .cube .back   { transform: rotateY(180deg) translateZ(40px); }
-  .cube .right  { transform: rotateY(90deg) translateZ(40px); }
-  .cube .left   { transform: rotateY(-90deg) translateZ(40px); }
-  .cube .top    { transform: rotateX(90deg) translateZ(40px); }
-  .cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
+      <div class="skill-row">
+        <div class="skill-title"><span>JavaScript</span><span>70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-value="70%"></div></div>
+      </div>
 
-  @keyframes spin {
-    from { transform: rotateX(-30deg) rotateY(-45deg); }
-    to { transform: rotateX(-30deg) rotateY(315deg); }
-  }
+      <div class="skill-row">
+        <div class="skill-title"><span>Python</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-value="85%"></div></div>
+      </div>
+    </section>
 
-  /* Cube shadow */
-  .cube-shadow {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 20px;
-    background: radial-gradient(ellipse at center, rgba(97,218,251,0.4), transparent);
-    filter: blur(12px);
-    border-radius: 50%;
-    animation: pulse 2s infinite ease-in-out;
-  }
+    <div class="extras">
+      <div class="card-mini">
+        <h4>Hobbies</h4>
+        <div>• Coding<br>• Gaming<br>• Learning New Things</div>
+      </div>
 
-  @keyframes pulse {
-    0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
-    50% { transform: translateX(-50%) scaleX(1.2); opacity: 0.3; }
-  }
-</style>
+      <div class="card-mini">
+        <h4>Contact</h4>
+        <div style="margin-top:6px">Phone: <strong>+8801757143424</strong></div>
+        <div style="margin-top:6px">Email: <strong>shepu9462@gmail.com</strong></div>
+        <div class="socials" style="margin-top:10px">
+          <a href="https://www.facebook.com/share/14NngtcLHyy/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/8801757143424" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/shareharjanshepu?igsh=eWd4aHduODNhYzBh" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="card-mini" style="text-align:center">
+        <h4>Download</h4>
+        <a class="download" href="cv.pdf" download>Download CV</a>
+
+      </div>
+    </div>
+
+  </article>
+</main>
 
 <script>
-  // Hide loader with smooth fade-out after 2 seconds
-  window.addEventListener("load", function(){
-    setTimeout(() => {
-      document.getElementById("shepu-loader").classList.add("fade-out");
-    }, 1000);
+// mobile menu handlers
+function openMobile(){ document.getElementById('mobileMenu').style.right='0'; document.getElementById('mobileMenu').setAttribute('aria-hidden','false') }
+function closeMobile(){ document.getElementById('mobileMenu').style.right='-100%'; document.getElementById('mobileMenu').setAttribute('aria-hidden','true') }
+
+// hide intro after page load (keeps cube visible briefly)
+window.addEventListener('load', () => {
+  setTimeout(()=> {
+    document.getElementById('intro').classList.add('hidden');
+    // animate skill bars after intro hide
+    animateSkills();
+  }, 900);
+});
+
+// ensure profile image centered — if image missing, fallback to placeholder (already set in img onerror)
+document.getElementById('profileImage').style.display = 'block';
+document.getElementById('profileImage').style.margin = '0 auto';
+
+// animate skill fills reading data-value
+function animateSkills(){
+  const fills = document.querySelectorAll('.skill-fill');
+  fills.forEach(f => {
+    const v = f.getAttribute('data-value') || '60%';
+    // small delay per bar
+    setTimeout(()=> {
+      f.style.width = v;
+    }, 200 + (Math.random()*600));
   });
+}
+
+// Accessibility: close mobile when clicking outside
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hambBtn');
+  if(menu && menu.style.right === '0' && !menu.contains(e.target) && !btn.contains(e.target)){
+    closeMobile();
+  }
+});
+
+// Mouse Movement Glow Effect on about-card
+const card = document.getElementById('aboutCard');
+if (card) {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+
+        card.style.setProperty('--mouse-x', `${x * 100}%`);
+        card.style.setProperty('--mouse-y', `${y * 100}%`);
+    });
+}
 </script>
-
-
-<div class="about-card">
-    <h1>About Me</h1>
-    <img src="Shepu.jpg" alt="Shipu's Photo" class="profile-img">
-    <div class="info">
-        <p>Hello! I'm <span>Shepu</span>, a passionate developer and tech enthusiast from Bangladesh. I love creating stylish websites and exploring new technologies. My goal is to make modern, responsive, and user-friendly web applications.</p>
-        <p>Skills: <span>HTML, CSS, JavaScript, Python, AI Chatbots</span></p>
-        <p>Hobbies: <span>Coding, Gaming, Learning New Things</span></p>
-    </div>
-    <div class="social-links">
-        <a href="https://www.facebook.com/share/14NngtcLHyy/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://wa.me/8801757143424" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.instagram.com/shareharjanshepu?igsh=eWd4aHduODNhYzBh" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://vm.tiktok.com/ZSHtXQcs1GNuQ-kdmhZ/" target="_blank"><i class="fab fa-tiktok"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-    </div>
-    <div style="margin-top:20px;">
-        <a href="cv.pdf" class="download-btn" download>Download CV</a>
-    </div>
-</div>
-
-<script>
-    // Floating particles
-    const particleCount=25;
-    for(let i=0;i<particleCount;i++){
-        const p=document.createElement('div');
-        p.classList.add('particle');
-        p.style.top=Math.random()*window.innerHeight+'px';
-        p.style.left=Math.random()*window.innerWidth+'px';
-        let size=4+Math.random()*4;
-        p.style.width=size+'px';
-        p.style.height=size+'px';
-        p.style.opacity=0.3+Math.random()*0.4;
-        p.style.animationDuration=(6+Math.random()*10)+'s';
-        document.body.appendChild(p);
-    }
-</script>
-
 </body>
 </html>
-
-
-
-
