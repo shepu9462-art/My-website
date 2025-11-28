@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Products - Shipu Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
         /* Basic Reset */
         * {
@@ -20,16 +20,156 @@
             min-height: 100vh;
         }
 
+        /* --- Stylish Header (Shipu Store - চিকন করা হলো) --- */
         header {
             background: linear-gradient(90deg, #ff6a00, #ee0979);
-            padding: 20px;
+            padding: 10px 20px; /* প্যাডিং অনেক কমিয়ে দেওয়া হলো */
             text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 5px #000;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            position: relative;
+            color: #fff;
         }
 
+        /* --- Search Bar (অতিরিক্ত কালার বক্স/ব্যাকগ্রাউন্ড সরানো হলো) --- */
+        .search-container {
+            padding: 15px 20px;
+            /* background: #1a1a1a; - সরানো হলো */
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); - সরানো হলো */
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .search-container input[type="text"] {
+            width: 90%;
+            max-width: 450px;
+            padding: 10px;
+            border: 1px solid #00eaff;
+            border-radius: 25px;
+            background: #2b2b2b;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6a00;
+            box-shadow: 0 0 10px #ff6a00, 0 0 20px rgba(255, 106, 0, 0.4);
+        }
+        
+        @media (max-width: 600px) {
+            .search-container input[type="text"] {
+                width: 95%;
+            }
+        }
+
+        /* --- Navigation Bar (Sticky to Top) --- */
+        .navbar {
+            background: #1a1a1a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, #FFCC33);
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+            transform-origin: right;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 15px 20px;
+        }
+
+        .hamburger .line {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile View - Hamburger Menu */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #1a1a1a;
+                padding-bottom: 10px;
+                position: absolute;
+                top: 50px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 15px 20px;
+                border-bottom: 1px solid #2b2b2b;
+            }
+
+            .hamburger {
+                display: flex;
+                position: absolute;
+                right: 20px;
+                top: 0;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                min-height: 50px;
+                position: relative;
+            }
+        }
+
+        /* --- Product Container & Card (Same as before) --- */
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -88,289 +228,267 @@
                 width: 90%;
             }
         }
+
+        /* --- Stylish Cube Loader (Cyberpunk Neon) --- */
+        #shepu-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d1117;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #shepu-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .shepu-text {
+            font-size: 3.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: bold;
+            color: #00eaff;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInOut 2.5s ease-in-out forwards;
+            text-shadow: 0 0 20px rgba(0, 234, 255, 0.8);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .cube-wrapper {
+            perspective: 1000px;
+            width: 100px;
+            height: 100px;
+            margin: auto;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin-3d 5s infinite ease-in-out;
+        }
+
+        .cube .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(13, 17, 23, 0.8);
+            border: 2px solid;
+            box-shadow: 0 0 15px, inset 0 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.9;
+            transition: all 0.5s ease;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .cube .front { transform: rotateY(0deg) translateZ(50px); border-color: #00eaff; box-shadow: 0 0 15px #00eaff, inset 0 0 5px #00eaff; }
+        .cube .back { transform: rotateY(180deg) translateZ(50px); border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff, inset 0 0 5px #ff00ff; }
+        .cube .right { transform: rotateY(90deg) translateZ(50px); border-color: #ff6a00; box-shadow: 0 0 15px #ff6a00, inset 0 0 5px #ff6a00; }
+        .cube .left { transform: rotateY(-90deg) translateZ(50px); border-color: #00ff00; box-shadow: 0 0 15px #00ff00, inset 0 0 5px #00ff00; }
+        .cube .top { transform: rotateX(90deg) translateZ(50px); border-color: #ffff00; box-shadow: 0 0 15px #ffff00, inset 0 0 5px #ffff00; }
+        .cube .bottom { transform: rotateX(-90deg) translateZ(50px); border-color: #ee0979; box-shadow: 0 0 15px #ee0979, inset 0 0 5px #ee0979; }
+
+        @keyframes spin-3d {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+
+        /* AI Button Styling (Same as before) */
+        #shepu-ai-button {
+            width: 46px;
+            height: 46px;
+            background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
+            border: 2px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(6px);
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 9999;
+            transition: 0.4s ease;
+        }
+
+        #shepu-ai-button:hover {
+            transform: scale(1.25) rotate(8deg);
+            box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
+        }
+
+        .ai-core {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .smart-chat-icon {
+            width: 18px;
+            height: 15px;
+            border-radius: 6px;
+            border: 2px solid #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            padding: 2px 3px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .smart-chat-icon::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 5px;
+            width: 6px;
+            height: 6px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            border-radius: 2px;
+            transform: rotate(-45deg);
+        }
+
+        .smart-chat-icon .line {
+            height: 2px;
+            width: 70%;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        .smart-chat-icon .line:nth-child(2) { width: 60%; }
+        .smart-chat-icon .line:nth-child(3) { width: 45%; }
     </style>
 </head>
 <body>
-  <!-- Stylish Transparent Navigation Menu with Golden Gradient Hover -->
-  <nav style="padding: 15px 0; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: auto; white-space: nowrap;">
-    <a href="index.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Home</a>
-    <a href="contact.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Contact</a>
-    <a href="Apps&Games.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Apps & Games</a>
-    <a href="Buy.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">Shop</a>
-    <a href="About.html" style="color: #fff; text-decoration: none; display: inline-block; margin: 0 15px; font-weight: bold; padding: 8px 20px; border-radius: 5px; transition: all 0.3s ease;">About</a>
-  </nav>
-
-  <script>
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        link.style.background = 'linear-gradient(to right, #FFD700, #FFCC33)'; // left-to-right golden gradient
-        link.style.color = '#000';
-        link.style.transform = 'scale(1.1)';
-      });
-      link.addEventListener('mouseleave', () => {
-        link.style.background = 'transparent';
-        link.style.color = '#fff';
-        link.style.transform = 'scale(1)';
-      });
-    });
-  </script>
-</body><br>
-<body>
-    <a href="ai.html" id="shepu-ai-button">
-    <div class="ai-core">
-        <div class="smart-chat-icon">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
+    <div id="shepu-loader">
+        <div class="loader-content">
+            <h1 class="shepu-text">Shipu Store</h1>
+            <div class="cube-wrapper">
+                <div class="cube">
+                    <div class="face front">S</div>
+                    <div class="face back">H</div>
+                    <div class="face right">I</div>
+                    <div class="face left">P</div>
+                    <div class="face top">U</div>
+                    <div class="face bottom">!</div>
+                </div>
+            </div>
         </div>
     </div>
-</a>
 
-<style>
-#shepu-ai-button {
-    width: 46px;
-    height: 46px;
-    background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
-    border: 2px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(6px);
-    position: fixed;
-    top: 120px;
-    right: 20px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Removed the constant box-shadow */
-    /* Removed the floatUp animation */
-    cursor: pointer;
-    text-decoration: none;
-    z-index: 9999;
-    transition: 0.4s ease;
-}
+    <a href="ai.html" id="shepu-ai-button">
+        <div class="ai-core">
+            <div class="smart-chat-icon">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+    </a>
 
-#shepu-ai-button:hover {
-    transform: scale(1.25) rotate(8deg);
-    /* Kept the hover glow effect */
-    box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
-}
-
-.ai-core {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Removed the constant box-shadow */
-    /* Removed the corePulse animation */
-}
-
-.smart-chat-icon {
-    width: 18px;
-    height: 15px;
-    border-radius: 6px;
-    border: 2px solid #fff;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2px;
-    padding: 2px 3px;
-    background: rgba(255,255,255,0.08);
-    /* Removed the constant box-shadow */
-}
-
-.smart-chat-icon::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 5px;
-    width: 6px;
-    height: 6px;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    border-radius: 2px;
-    transform: rotate(-45deg);
-    /* Removed the constant box-shadow */
-}
-
-.smart-chat-icon .line {
-    height: 2px;
-    width: 70%;
-    background: #fff;
-    border-radius: 2px;
-}
-
-.smart-chat-icon .line:nth-child(2) { width: 60%; }
-.smart-chat-icon .line:nth-child(3) { width: 45%; }
-
-/* Removed the floatUp and corePulse keyframes as they are no longer used */
-</style>
-
-    <!-- Shepu Stylish Intro -->
-<div id="shepu-loader">
-  <div class="loader-content">
-    <h1 class="shepu-text">Shepu</h1>
-    <div class="cube-wrapper">
-      <div class="cube">
-        <div class="face front"></div>
-        <div class="face back"></div>
-        <div class="face right"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
-      </div>
-      <div class="cube-shadow"></div>
-    </div>
-  </div>
-</div>
-
-<style>
-  /* Fullscreen loader */
-  #shepu-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0d1117;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    transition: opacity 1s ease, visibility 1s ease;
-  }
-
-  #shepu-loader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .loader-content {
-    text-align: center;
-  }
-
-  /* Shepu text */
-  .shepu-text {
-    font-size: 3rem;
-    font-family: "Trebuchet MS", sans-serif;
-    font-weight: bold;
-    color: #61dafb;
-    letter-spacing: 2px;
-    margin-bottom: 50px;
-    opacity: 0;
-    animation: fadeInOut 1s ease-in-out forwards;
-  }
-
-  @keyframes fadeInOut {
-    0% { opacity: 0; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.05); }
-    100% { opacity: 0; transform: scale(1); }
-  }
-
-  /* Cube wrapper */
-  .cube-wrapper {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: auto;
-  }
-
-  /* Transparent Cube */
-  .cube {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: spin 3s infinite linear;
-    margin: auto;
-  }
-
-  .cube .face {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: transparent;
-    border: 2px solid #61dafb;
-    box-shadow: 0 0 15px rgba(97, 218, 251, 0.7);
-  }
-
-  .cube .front  { transform: rotateY(0deg) translateZ(40px); }
-  .cube .back   { transform: rotateY(180deg) translateZ(40px); }
-  .cube .right  { transform: rotateY(90deg) translateZ(40px); }
-  .cube .left   { transform: rotateY(-90deg) translateZ(40px); }
-  .cube .top    { transform: rotateX(90deg) translateZ(40px); }
-  .cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
-
-  @keyframes spin {
-    from { transform: rotateX(-30deg) rotateY(-45deg); }
-    to { transform: rotateX(-30deg) rotateY(315deg); }
-  }
-
-  /* Cube shadow */
-  .cube-shadow {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 20px;
-    background: radial-gradient(ellipse at center, rgba(97,218,251,0.4), transparent);
-    filter: blur(12px);
-    border-radius: 50%;
-    animation: pulse 2s infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
-    50% { transform: translateX(-50%) scaleX(1.2); opacity: 0.3; }
-  }
-</style>
-
-<script>
-  // Hide loader with smooth fade-out after 2 seconds
-  window.addEventListener("load", function(){
-    setTimeout(() => {
-      document.getElementById("shepu-loader").classList.add("fade-out");
-    }, 1000);
-  });
-</script>
+    <nav class="navbar">
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="Apps&Games.html">Apps & Games</a></li>
+            <li><a href="Buy.html">Shop</a></li>
+            <li><a href="About.html">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
 
     <header>Shipu Store 🛒</header>
-    
 
-    <div class="container">
-        <!-- Product 1 -->
-        <div class="product-card">
+    <div class="search-container">
+        <input type="text" id="productSearch" placeholder="🔍 প্রোডাক্ট খুঁজুন">
+    </div>
+
+    <div class="container" id="productContainer">
+        <div class="product-card" data-name="uno">
             <img src="uno.png" alt="uno">
             <div class="product-name">UNO<br><del>150</del>100৳</div>
             <a href="https://www.facebook.com/share/17PCSJUMQj/" target="_blank" class="buy-btn">Order on Messenger</a>
         </div>
 
-        <!-- Product 2 -->
-        <div class="product-card">
+        <div class="product-card" data-name="lighter stylish">
             <img src="lighter.png" alt="Lighter">
             <div class="product-name">Stylish Lighter<br><del>150</del>100৳</div>
             <a href="https://www.facebook.com/share/17PCSJUMQj/" target="_blank" class="buy-btn">Order on Messenger</a>
         </div>
 
-        <!-- Product 3 -->
-        <div class="product-card">
+        <div class="product-card" data-name="bracelets stylish">
             <img src="bracelets.png" alt="bracelets">
             <div class="product-name">Stylish Bracelets</div>
             <a href="https://www.facebook.com/share/17PCSJUMQj/" target="_blank" class="buy-btn">Order on Messenger</a>
         </div>
-
+        
     </div>
+
+    <script>
+        // --- Intro Loader Script ---
+        window.addEventListener("load", function(){
+            setTimeout(() => {
+                document.getElementById("shepu-loader").classList.add("fade-out");
+            }, 2500);
+        });
+
+        // --- Hamburger Menu Toggle Script ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // --- Product Search Script ---
+        const searchInput = document.getElementById('productSearch');
+        const productContainer = document.getElementById('productContainer');
+        const productCards = productContainer.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('keyup', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            productCards.forEach(card => {
+                const productName = card.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
