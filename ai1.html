@@ -66,7 +66,6 @@
             box-shadow: var(--modern-shadow);
             border: 1px solid var(--input-border);
             transition: background 0.3s, border 0.3s, box-shadow 0.3s;
-            /* সাজেশন বক্সের প্যারেন্ট হিসেবে অবস্থান সেট করা হলো */
             position: relative;
         }
 
@@ -96,9 +95,8 @@
             letter-spacing: 0;
         }
 
-        /* --- নতুন ভার্সন সিলেকশন স্টাইল --- */
         .version-select {
-            margin-left: 15px; /* লোগো/নাম থেকে দূরত্ব */
+            margin-left: 15px;
             font-size: 14px;
             padding: 5px 10px;
             border-radius: 8px;
@@ -107,7 +105,7 @@
             border: 1px solid var(--input-border);
             cursor: pointer;
             outline: none;
-            appearance: none; /* ডিফল্ট ড্রপডাউন স্টাইল রিমুভ */
+            appearance: none;
             transition: all 0.2s;
             font-family: 'Montserrat', 'Arial', sans-serif;
             font-weight: 500;
@@ -121,7 +119,7 @@
             background: var(--chat-bg);
             color: var(--text-color);
         }
-        /* লাইট মোডে অপশন স্টাইল */
+
         body.light-mode .version-select {
             background: var(--bot-msg-bg);
             border: 1px solid var(--input-border);
@@ -130,7 +128,6 @@
             background: var(--bot-msg-bg);
             color: var(--secondary-color);
         }
-        /* --- ভার্সন সিলেকশন স্টাইল শেষ --- */
 
         .theme-toggle {
             cursor: pointer;
@@ -266,9 +263,7 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
-        /* --- INPUT AREA AND SUGGESTION STYLES --- */
         .input-area {
-            /* position: relative; এটি এখন প্রয়োজন নেই, কারণ #suggestionBox বাইরে চলে গেছে */
             display: flex;
             padding: 15px 20px;
             background: var(--header-footer-bg);
@@ -279,7 +274,6 @@
         }
 
         #suggestionBox {
-            /* এখন প্যারেন্ট .chat-box, তাই bottom পজিশনিং ঠিক করা হয়েছে */
             position: absolute;
             bottom: 70px;
             left: 20px;
@@ -315,7 +309,6 @@
         body.light-mode #suggestionBox {
             border: 1px solid var(--input-border);
         }
-
 
         textarea {
             flex: 1;
@@ -384,6 +377,7 @@
                 <select id="versionSelect" class="version-select">
                     <option value="v1">V1 (Default)</option>
                     <option value="v2">V2 (Advanced)</option>
+                    <option value="v3">V3 (Advance)</option>
                 </select>
 
                 <button id="liveChatToggle" class="live-chat-toggle" title="Live Chat (Voice Mode)">
@@ -411,24 +405,20 @@
     // *** ভার্সন সিলেকশন লজিক ***
     document.addEventListener('DOMContentLoaded', () => {
         const versionSelect = document.getElementById('versionSelect');
-        const currentVersion = 'v1'; // ধরে নিলাম বর্তমান পেজটি v1
-
-        // যদি URL-এ কোনো প্যারামিটার থাকে যা ভার্সন নির্দেশ করে, তবে তা সেট করা যেতে পারে
-        // তবে সহজ রাখার জন্য ডিফল্ট v1 ই সেট করা হলো
-
-        versionSelect.value = currentVersion;
 
         versionSelect.addEventListener('change', function() {
             const selectedVersion = this.value;
-            if (selectedVersion === 'v2') {
-                // v2 সিলেক্ট হলে ai.html এ রিডাইরেক্ট
+
+            if (selectedVersion === 'v3') {
                 window.location.href = 'ai.html';
             }
-            // v1 সিলেক্ট হলে বর্তমান পেজেই থাকবে, তাই কোনো action নেই
+            else if (selectedVersion === 'v2') {
+                window.location.href = 'ai2.html';
+            }
+            // v1 → কোনো পরিবর্তন নেই, এই পেজেই থাকবে
         });
     });
     // *** ভার্সন সিলেকশন লজিক শেষ ***
-
 
     const liveChatToggle = document.getElementById('liveChatToggle');
     const userInput = document.getElementById("userInput");
@@ -543,14 +533,12 @@
     async function loadFile(filename) {
         try {
             const res = await fetch(filename + '?t=' + new Date().getTime());
-            // HTTP 200 OK চেক করা
             if (!res.ok) {
                  console.error(`Error loading file ${filename}: HTTP status ${res.status}`);
                  return "";
             }
             return await res.text();
         } catch(e) {
-            // নেটওয়ার্ক বা CORS এরর হ্যান্ডেল করা
             console.error(`Network or file error for ${filename}:`, e);
             return "";
         }
@@ -586,7 +574,6 @@
         initialLoadingMsg.innerHTML = 'Initializing Core <span></span><span></span><span></span>';
         msgBox.appendChild(initialLoadingMsg);
 
-        // নিশ্চিত করুন ফাইল নামগুলি ঠিক আছে
         const bar = await loadFile("bar.txt");
         const golpo = await loadFile("golpo.txt");
         const newFile = await loadFile("new.txt");
@@ -621,13 +608,11 @@
              console.warn("Question Bank is empty! Check your .txt files and delimiters (semicolon ';').");
         }
 
-
         initialLoadingMsg.remove();
         const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
         addMessage(randomWelcome, "bot");
     }
     loadAllFiles();
-
 
     function findAnswer(question) {
         const cleanedQuestion = preprocess(question);
@@ -640,7 +625,6 @@
         if (questionBank.length === 0) {
             return "দুঃখিত, ডেটাবেস লোড হয়নি। দয়া করে ফাইলগুলো চেক করুন।";
         }
-
 
         let bestAnswer = "দুঃখিত, এই প্রশ্নটির জন্য আমার কাছে কোনো উপযুক্ত তথ্য নেই। আপনি কি অন্যভাবে জিজ্ঞাসা করতে পারেন?";
         let maxSimilarityScore = 0;
@@ -710,7 +694,6 @@
         let question = input.value.trim();
         if (!question) return;
 
-        // মেসেজ সেন্ড হওয়ার সাথে সাথে সাজেশন বন্ধ করা
         suggestionBox.style.display = 'none';
 
         addMessage(question, "user");
@@ -724,7 +707,6 @@
         document.getElementById("messages").appendChild(botTyping);
         document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 
-
         const delay = Math.floor(Math.random() * (1200 - 500 + 1)) + 500;
 
         setTimeout(() => {
@@ -736,21 +718,18 @@
         }, delay);
     }
 
-    // *** লাইভ সাজেশন লজিক (Input Event Handler) ***
     userInput.addEventListener('input', function() {
-        // Auto-resize
         this.style.height = '50px';
         this.style.height = (this.scrollHeight) + 'px';
 
         const query = this.value.trim().toLowerCase();
 
-        if (query.length < 2 || questionBank.length === 0) { // ডেটা লোড না হলে বা ২ অক্ষরের কম হলে বন্ধ
+        if (query.length < 2 || questionBank.length === 0) {
             suggestionBox.style.display = 'none';
             suggestionBox.innerHTML = '';
             return;
         }
 
-        // প্রসেসড প্রশ্নে মিল খুঁজে বের করা
         const suggestions = questionBank
             .filter(item => item.processed_q.includes(query))
             .slice(0, 5);
@@ -766,7 +745,7 @@
                     userInput.value = item.original_q;
                     suggestionBox.style.display = 'none';
                     userInput.focus();
-                    userInput.dispatchEvent(new Event('input')); // ইনপুট ইভেন্ট ট্রিগার করা যাতে রিসাইজ হয়
+                    userInput.dispatchEvent(new Event('input'));
                 };
                 suggestionBox.appendChild(suggestionItem);
             });
@@ -776,8 +755,6 @@
         }
     });
 
-
-    // *** কি-বোর্ড শর্টকাট ***
     userInput.addEventListener("keydown", function(e) {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -785,8 +762,6 @@
         }
     });
 
-
-    // *** থিম টগল লজিক ***
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
 
@@ -803,7 +778,6 @@
         }
     }
     updateThemeIcon(body.className);
-
 
     themeToggle.addEventListener('click', function() {
         if (body.classList.contains('dark-mode')) {
