@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shepu-AI | Smart Assistant</title>
     <link rel="icon" href="Shepu.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-
     <style>
         :root {
             --bg-color: #131314;
@@ -24,7 +23,6 @@
             --font-main: 'Outfit', sans-serif;
             --font-code: 'Roboto Mono', monospace;
         }
-
         body.light-mode {
             --bg-color: #ffffff;
             --sidebar-bg: #f0f4f9;
@@ -37,8 +35,140 @@
             --border-color: #e0e0e0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ────────────── HACKING MODE ────────────── */
+        body.hacking-mode {
+            --bg-color: #0a0a0a;
+            --sidebar-bg: #050505;
+            --chat-bg: #000000;
+            --input-bg: #0f1400;
+            --user-msg-bg: #112200;
+            --bot-msg-text: #00ff41;
+            --accent-color: #00ff9d;
+            --text-primary: #00ff41;
+            --text-secondary: #00cc66;
+            --border-color: #003311;
+            --cursor-color: #00ff41;
+        }
 
+        body.hacking-mode {
+            font-family: 'VT323', 'Roboto Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        body.hacking-mode .chat-container {
+            background:
+                radial-gradient(circle at 50% 50%, rgba(0,40,0,0.45) 0%, transparent 70%),
+                linear-gradient(rgba(0,255,60,0.04) 2px, transparent 2px),
+                var(--chat-bg);
+            background-size: 100% 100%, 100% 4px;
+            animation:
+                scanline 9s linear infinite,
+                subtle-glitch 4.5s infinite steps(1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.hacking-mode .chat-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,255,80,0.018) 2px,
+                rgba(0,255,80,0.018) 4px
+            );
+            pointer-events: none;
+            animation: rain 55s linear infinite;
+            opacity: 0.16;
+        }
+
+        @keyframes rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 2200px; }
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        @keyframes subtle-glitch {
+            0%, 4%, 8%, 12%, 100% { transform: translate(0); }
+            2%  { transform: translate(-1.5px, 1px); }
+            6%  { transform: translate(1.2px, -0.8px); }
+            10% { transform: translate(-0.8px, 1.2px); }
+        }
+
+        body.hacking-mode .msg-content,
+        body.hacking-mode h2,
+        body.hacking-mode p,
+        body.hacking-mode .model-name,
+        body.hacking-mode .sidebar-footer,
+        body.hacking-mode .history-item {
+            text-shadow:
+                0 0 4px #00ff41,
+                0 0 8px #00ff41,
+                0 0 16px rgba(0,255,65,0.5);
+            animation: text-crt-flicker 5.5s infinite;
+        }
+
+        @keyframes text-crt-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 4px #00ff41, 0 0 12px #00ff41; }
+            20%, 24%, 55% { opacity: 0.65; text-shadow: 0 0 2px #00aa30; }
+        }
+
+        body.hacking-mode pre,
+        body.hacking-mode code {
+            background: #0b180b !important;
+            border: 1px solid #004d00;
+            box-shadow: 0 0 15px rgba(0,80,0,0.6) inset;
+            color: #00ff88;
+            text-shadow: 0 0 3px #00ff41;
+        }
+
+        body.hacking-mode .input-box {
+            border: 1px solid #004d00;
+            box-shadow: 0 0 12px rgba(0,60,0,0.7), inset 0 0 8px rgba(0,100,0,0.4);
+            position: relative;
+        }
+
+        body.hacking-mode textarea {
+            caret-color: var(--cursor-color);
+        }
+
+        body.hacking-mode textarea::placeholder {
+            color: #004d00;
+            opacity: 0.6;
+        }
+
+        body.hacking-mode .input-box::after {
+            content: "|";
+            position: absolute;
+            right: 28px;
+            bottom: 14px;
+            color: var(--cursor-color);
+            animation: blink-cursor 1.1s step-end infinite;
+            pointer-events: none;
+        }
+
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        body.hacking-mode .send-btn,
+        body.hacking-mode .action-btn:hover,
+        body.hacking-mode .new-chat-btn:hover,
+        body.hacking-mode .history-item:hover,
+        body.hacking-mode .sidebar-footer:hover {
+            color: #00ff9d;
+            text-shadow: 0 0 10px #00ff41;
+            background: rgba(0,40,0,0.6) !important;
+        }
+        /* ────────────────────────────────────────── */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: var(--font-main);
             background-color: var(--bg-color);
@@ -46,9 +176,8 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
-            transition: background 0.3s, color 0.3s;
+            transition: background 0.4s, color 0.4s;
         }
-
         .sidebar {
             width: 260px;
             background-color: var(--sidebar-bg);
@@ -57,7 +186,6 @@
             padding: 20px 10px;
             z-index: 100;
         }
-
         .new-chat-btn {
             background: #37393b;
             color: var(--text-secondary);
@@ -73,7 +201,6 @@
             transition: 0.2s;
         }
         .new-chat-btn:hover { background: #444746; color: #fff; }
-
         .history-list { flex: 1; overflow-y: auto; }
         .history-item {
             padding: 10px;
@@ -86,7 +213,6 @@
             text-overflow: ellipsis;
         }
         .history-item:hover { background: #37393b; color: #fff; }
-
         .sidebar-footer {
             border-top: 1px solid var(--border-color);
             padding-top: 15px;
@@ -96,7 +222,6 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         .main-content {
             flex: 1;
             display: flex;
@@ -104,7 +229,6 @@
             position: relative;
             background: var(--chat-bg);
         }
-
         .top-bar {
             padding: 15px 20px;
             display: flex;
@@ -118,7 +242,6 @@
         }
         .model-name { font-weight: 500; font-size: 18px; display: flex; align-items: center; gap: 8px;}
         .model-name i { color: var(--accent-color); }
-
         #versionSelector {
             background: var(--input-bg);
             color: var(--text-primary);
@@ -136,7 +259,6 @@
             padding-right: 25px;
         }
         body.light-mode #versionSelector { background: #ffffff; }
-
         .chat-container {
             flex: 1;
             overflow-y: auto;
@@ -145,11 +267,10 @@
             flex-direction: column;
             gap: 25px;
             scroll-behavior: smooth;
+            position: relative;
         }
-
         .chat-container::-webkit-scrollbar { width: 8px; }
         .chat-container::-webkit-scrollbar-thumb { background: #444746; border-radius: 4px; }
-
         .msg {
             display: flex;
             gap: 15px;
@@ -158,28 +279,23 @@
             animation: fadeIn 0.3s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .msg.user { flex-direction: row-reverse; }
-
         .msg-content {
             max-width: 80%;
             padding: 10px 15px;
             border-radius: 12px;
             position: relative;
         }
-
         .user .msg-content {
             background-color: var(--user-msg-bg);
             border-radius: 20px 20px 4px 20px;
         }
-
         .bot .msg-content {
             background: transparent;
             padding: 0;
             width: 100%;
             color: var(--bot-msg-text);
         }
-
         .avatar {
             width: 30px;
             height: 30px;
@@ -192,18 +308,14 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
         .bot .avatar { background: transparent; }
-
         .user .avatar {
             background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
             color: #5f2c82;
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
-
         body.dark-mode .user .avatar i { color: #333; }
-
         pre {
             background: #1e1e1e !important;
             border-radius: 8px;
@@ -214,7 +326,6 @@
             border: 1px solid #333;
         }
         code { font-family: var(--font-code); font-size: 14px; }
-
         .input-wrapper {
             padding: 20px 15%;
             background: var(--bg-color);
@@ -223,7 +334,6 @@
             z-index: 10;
             box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
         }
-
         .input-box {
             background: var(--input-bg);
             border-radius: 30px;
@@ -234,7 +344,6 @@
             transition: border 0.2s;
         }
         .input-box:focus-within { border-color: var(--border-color); }
-
         textarea {
             flex: 1;
             background: transparent;
@@ -248,7 +357,6 @@
             font-family: var(--font-main);
             height: 44px;
         }
-
         .action-btn {
             background: transparent;
             border: none;
@@ -262,10 +370,8 @@
         .action-btn:hover { background: #444746; color: #fff; }
         .send-btn { color: var(--accent-color); }
         .send-btn:disabled { color: #555; cursor: default; }
-
         .recording { color: #ff4444; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
         #suggestionBox {
             position: absolute;
             bottom: 90px;
@@ -286,16 +392,14 @@
             color: var(--text-primary);
         }
         .suggestion-item:hover { background: #37393b; }
-
         .tts-btn-global { display: none; }
-
         .message-actions {
             margin-top: 10px;
             display: flex;
             align-items: center;
+            gap: 5px;
         }
-
-        .msg-tts-btn {
+        .msg-action-btn {
             background: transparent;
             border: none;
             color: var(--text-secondary);
@@ -303,11 +407,10 @@
             padding: 5px 8px;
             border-radius: 50%;
             transition: 0.2s;
-            font-size: 16px;
+            font-size: 15px;
         }
-        .msg-tts-btn:hover { background: #444746; color: #fff; }
-        .msg-tts-btn.active { color: var(--accent-color); }
-
+        .msg-action-btn:hover { background: #444746; color: #fff; }
+        .msg-action-btn.active { color: var(--accent-color); }
         .typing-dot {
             display: inline-block;
             width: 6px; height: 6px;
@@ -319,11 +422,9 @@
         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
         @media (max-width: 768px) {
             body { display: block; overflow-y: hidden; }
             .main-content { width: 100vw; height: 100vh; }
-
             .sidebar {
                 position: fixed;
                 height: 100%;
@@ -333,32 +434,26 @@
                 transition: transform 0.3s ease;
             }
             .sidebar.active { transform: translateX(0); }
-
             #menuBtn { display: block !important; }
-
             .chat-container {
                 padding: 15px 5%;
                 padding-bottom: 120px;
                 gap: 15px;
             }
-
             .input-wrapper {
                 padding: 15px 5%;
                 left: 0; right: 0;
                 width: 100%;
             }
-
             #suggestionBox {
                 left: 5%;
                 right: 5%;
                 bottom: 80px;
             }
-
             .msg-content {
                 max-width: 90%;
                 font-size: 15px;
             }
-
             .avatar {
                 width: 30px;
                 height: 30px;
@@ -366,30 +461,28 @@
             }
             .bot .avatar { margin-top: 0px; }
             .user .avatar { margin-top: 0px; }
-
             textarea {
                 padding: 8px;
                 font-size: 15px;
                 height: 40px;
             }
-
             .action-btn { font-size: 16px; padding: 8px; }
-
             .model-name { font-size: 16px; }
             #versionSelector { font-size: 12px; }
         }
     </style>
 </head>
 <body class="dark-mode">
-
     <div class="sidebar" id="sidebar">
         <button class="new-chat-btn" onclick="location.reload()">
             <i class="fas fa-plus"></i> New Chat
         </button>
-        <div class="history-list" id="historyList">
-        </div>
+        <div class="history-list" id="historyList"></div>
         <div class="sidebar-footer" onclick="toggleTheme()">
             <i class="fas fa-adjust"></i> Switch Theme
+        </div>
+        <div class="sidebar-footer" onclick="setHackingMode()">
+            <i class="fas fa-skull-crossbones"></i> Hacking Mode
         </div>
     </div>
 
@@ -399,9 +492,10 @@
             <div class="model-name">
                 <i class="fas fa-sparkles"></i> Shepu-AI
                 <select id="versionSelector" onchange="changeVersion(this)">
-                    <option value="ai2.html" selected>v2.0</option>
+                    <option value="ai.html" selected>v3.0</option>
+                    <option value="ai2.html" >v2.0</option>
                     <option value="ai1.html">v1.0</option>
-                    </select>
+                </select>
                 <span style="font-size: 12px; margin-left: 5px; opacity: 0.6;">(Smart V2)</span>
             </div>
             <button class="action-btn tts-btn-global" id="ttsToggle" onclick="toggleTTS()" title="Text to Speech"><i class="fas fa-volume-mute"></i></button>
@@ -410,13 +504,15 @@
         <div class="chat-container" id="chatContainer">
             <div class="msg bot">
                 <div class="avatar">
-                    <img src="pai.png" alt="Shepu AI" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-robot\'></i>'">
+                    <img id="ai-avatar" src="pai.png" alt="Shepu AI"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-robot\'></i>'">
                 </div>
                 <div class="msg-content">
                     <h2 id="greetingText">Hello, I'm Shepu-AI</h2>
                     <p style="opacity: 0.8;">I'm smarter now. Ask me anything from your files, check time, or solve math!</p>
                     <div class="message-actions">
-                        <button class="msg-tts-btn" onclick="speakMessage(this)" data-text="Hello, I'm Shepu-AI. I'm smarter now. Ask me anything from your files, check time, or solve math!" title="Read Aloud"><i class="fas fa-volume-up"></i></button>
+                        <button class="msg-action-btn" onclick="speakMessage(this)" data-text="Hello, I'm Shepu-AI. I'm smarter now. Ask me anything from your files, check time, or solve math!" title="Read Aloud"><i class="fas fa-volume-up"></i></button>
+                        <button class="msg-action-btn" onclick="copyMessage(this)" data-text="Hello, I'm Shepu-AI. I'm smarter now. Ask me anything from your files, check time, or solve math!" title="Copy Text"><i class="fas fa-copy"></i></button>
                     </div>
                 </div>
             </div>
@@ -434,7 +530,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-
     <script>
         const EMBEDDED_DB = [
             { q: "hi", a: "Hello! How can I help you today?" },
@@ -444,9 +539,7 @@
             { q: "bye", a: "Goodbye! Have a nice day." },
             { q: "code example", a: "Here is a Python example:\n```python\nprint('Hello World')\n```" }
         ];
-
         let database = [];
-
         const chatContainer = document.getElementById('chatContainer');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
@@ -460,7 +553,6 @@
             await loadData();
             setDynamicGreeting();
             userInput.focus();
-
             const isMobile = window.innerWidth <= 768;
             if(isMobile) {
                 menuBtn.addEventListener('click', () => {
@@ -483,21 +575,60 @@
             if(hour < 12) greetingText = "Good Morning, I'm Shepu-AI";
             else if(hour < 18) greetingText = "Good Afternoon, I'm Shepu-AI";
             else greetingText = "Good Evening, I'm Shepu-AI";
-
             h2.innerText = greetingText;
+            const initialBtn = document.querySelector('.msg-action-btn[onclick*="speak"]');
+            const copyBtn = document.querySelector('.msg-action-btn[onclick*="copy"]');
 
-            const initialBtn = document.querySelector('.msg-tts-btn');
-            if (initialBtn) {
+            if (initialBtn && copyBtn) {
                 const fullText = greetingText + ". I'm smarter now. Ask me anything from your files, check time, or solve math!";
                 initialBtn.setAttribute('data-text', fullText);
+                copyBtn.setAttribute('data-text', fullText);
+            }
+        }
+
+        function setHackingMode() {
+            document.body.classList.remove('light-mode');
+            document.body.classList.add('hacking-mode');
+
+            // Change AI avatar to hai.ico
+            const aiAvatar = document.getElementById('ai-avatar');
+            if (aiAvatar) {
+                aiAvatar.src = "hai.ico";
+                aiAvatar.onerror = function() {
+                    this.style.display = 'none';
+                    this.parentElement.innerHTML = '<i class="fas fa-skull-crossbones"></i>';
+                };
+            }
+
+            // Update greeting (hacker style)
+            const greeting = document.getElementById('greetingText');
+            if (greeting && !greeting.dataset.hacked) {
+                greeting.innerHTML = '>>> SYSTEM ACCESS GRANTED <<<' +
+                                    '<br>SHEPU-AI v13.37 – ROOT LEVEL' +
+                                    '<br>NETWORK: [SECURE]  –  TRACE: [NULL]' +
+                                    '<br>READY FOR COMMANDS...';
+                greeting.dataset.hacked = 'true';
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.remove('hacking-mode');
+            document.body.classList.toggle('light-mode');
+
+            // Restore normal avatar
+            const aiAvatar = document.getElementById('ai-avatar');
+            if (aiAvatar) {
+                aiAvatar.src = "pai.png";
+                aiAvatar.onerror = function() {
+                    this.style.display = 'none';
+                    this.parentElement.innerHTML = '<i class="fas fa-robot"></i>';
+                };
             }
         }
 
         async function loadData() {
             EMBEDDED_DB.forEach(item => database.push({ q: item.q.toLowerCase(), a: item.a }));
-
             const files = ['bar.txt', 'golpo.txt', 'new.txt', 'book.txt'];
-
             for(let file of files) {
                 try {
                     let res = await fetch(file);
@@ -527,11 +658,7 @@
         function changeVersion(selectElement) {
             const selectedFile = selectElement.value;
             const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-
-            if (currentPath === selectedFile) {
-                return;
-            }
-
+            if (currentPath === selectedFile) return;
             window.location.href = selectedFile;
         }
 
@@ -569,45 +696,51 @@
         function findAnswer(query) {
             query = query.toLowerCase().trim();
             if(!query) return null;
-
             if (/^[\d\s\+\-\*\/\(\)\.]+$/.test(query) && /\d/.test(query)) {
                 try {
                     let result = eval(query);
                     return `Calculated Result: **${result}**`;
                 } catch (e) {}
             }
-
             if (query.includes('time') || query.includes('somoy') || query.includes('koyta baje')) {
                 return "Current time is: **" + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + "**";
             }
             if (query.includes('date') || query.includes('tarikh') || query.includes('aj ke')) {
                 return "Today's date is: **" + new Date().toLocaleDateString() + "**";
             }
-
             let bestMatch = null;
-            let highestScore = 0;
-
+            let highestScore = -1;
             database.forEach(item => {
-                if(query === item.q) {
-                    highestScore = 1.0;
-                    bestMatch = item;
-                }
-                else if (query.includes(item.q) && item.q.length > 3) {
-                    if(0.8 > highestScore) { highestScore = 0.8; bestMatch = item; }
-                }
-                else {
-                    let score = similarity(query, item.q);
-                    if(score > highestScore) {
-                        highestScore = score;
-                        bestMatch = item;
+                let dbQ = item.q;
+                let currentScore = 0;
+                if (query === dbQ) {
+                    currentScore = 1.0;
+                } else {
+                    let simScore = similarity(query, dbQ);
+                    let queryWords = query.split(' ');
+                    let dbWords = dbQ.split(' ');
+                    let matchCount = 0;
+                    queryWords.forEach(w => {
+                        if(w.length > 2 && dbQ.includes(w)) matchCount++;
+                    });
+
+                    let overlapScore = (matchCount / Math.max(queryWords.length, dbWords.length));
+                    if(isNaN(overlapScore)) overlapScore = 0;
+
+                    currentScore = (simScore * 0.7) + (overlapScore * 0.3);
+
+                    if (dbQ.includes(query) || query.includes(dbQ)) {
+                        currentScore += 0.15;
                     }
                 }
+                if (currentScore > highestScore) {
+                    highestScore = currentScore;
+                    bestMatch = item;
+                }
             });
-
-            if (highestScore > 0.6) {
+            if (bestMatch && highestScore > 0.35) {
                 return bestMatch.a;
             }
-
             const fallbacks = [
                 "I'm not sure about that. Can you rephrase?",
                 "Could you check the spelling? I'm searching my database...",
@@ -625,33 +758,25 @@
 
         function speakText(text, buttonElement = null) {
             window.speechSynthesis.cancel();
-
-            document.querySelectorAll('.msg-tts-btn').forEach(btn => btn.classList.remove('active'));
-
+            document.querySelectorAll('.msg-action-btn').forEach(btn => btn.classList.remove('active'));
             if (buttonElement && buttonElement.classList.contains('active')) {
                 buttonElement.classList.remove('active');
                 return;
             }
-
             let cleanText = text.replace(/<[^>]*>?/gm, '');
             cleanText = cleanText.replace(/code snippet\.\n/g, "");
             cleanText = cleanText.replace(/<pre><code[\s\S]*?<\/code><\/pre>/g, " code snippet. ");
             cleanText = cleanText.replace(/&quot;/g, '"');
-
             const utterance = new SpeechSynthesisUtterance(cleanText);
             const voices = window.speechSynthesis.getVoices();
             const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.lang.startsWith("en")) || voices[0];
-
             if(preferredVoice) utterance.voice = preferredVoice;
-
             utterance.onstart = () => {
                 if(buttonElement) buttonElement.classList.add('active');
             };
-
             utterance.onend = () => {
                 if(buttonElement) buttonElement.classList.remove('active');
             };
-
             window.speechSynthesis.speak(utterance);
         }
 
@@ -660,21 +785,55 @@
             speakText(textToSpeak, button);
         }
 
+        function copyMessage(button) {
+            const textToCopy = button.getAttribute('data-text');
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopyFeedback(button);
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                    fallbackCopy(textToCopy, button);
+                });
+            } else {
+                fallbackCopy(textToCopy, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if(successful) showCopyFeedback(button);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showCopyFeedback(button) {
+            const icon = button.querySelector('i');
+            const originalClass = icon.className;
+            icon.className = 'fas fa-check';
+            setTimeout(() => {
+                icon.className = originalClass;
+            }, 2000);
+        }
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if(!text) return;
-
             userInput.value = '';
             userInput.style.height = window.innerWidth <= 768 ? '40px' : '44px';
             suggestionBox.style.display = 'none';
-
             addMessage(text, 'user');
             addToHistory(text);
-
             const thinkingId = addTypingIndicator();
             const delay = Math.random() * 800 + 400;
-
             setTimeout(() => {
                 removeMessage(thinkingId);
                 const answer = findAnswer(text);
@@ -686,7 +845,6 @@
             val = val.toLowerCase().trim();
             if(val.length < 2) { suggestionBox.style.display = 'none'; return; }
             const matches = database.filter(item => item.q.includes(val)).slice(0, 3);
-
             if(matches.length > 0) {
                 suggestionBox.innerHTML = '';
                 matches.forEach(m => {
@@ -711,32 +869,26 @@
             div.className = `msg ${sender}`;
             const id = 'msg-' + Date.now();
             div.id = id;
-
             let avatarHTML = sender === 'bot'
                 ? `<img src="pai.png" alt="AI" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-robot\\'></i>'">`
                 : `<i class="fas fa-user"></i>`;
-
             let formattedText = formatText(text);
-
             div.innerHTML = `<div class="avatar">${avatarHTML}</div><div class="msg-content"></div>`;
             chatContainer.appendChild(div);
             const contentDiv = div.querySelector('.msg-content');
-
             if(sender === 'bot') {
                 contentDiv.innerHTML = formattedText;
-
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = formattedText;
-                const rawTextForTTS = tempDiv.innerText.trim().replace(/\n/g, ' ');
-
+                const rawText = tempDiv.innerText.trim().replace(/\n/g, '\n');
+                const rawTextForAttr = rawText.replace(/"/g, '&quot;');
                 const actionsHtml = `
                     <div class="message-actions">
-                        <button class="msg-tts-btn" onclick="speakMessage(this)" data-text="${rawTextForTTS.replace(/"/g, '&quot;')}" title="Read Aloud"><i class="fas fa-volume-up"></i></button>
+                        <button class="msg-action-btn" onclick="speakMessage(this)" data-text="${rawTextForAttr}" title="Read Aloud"><i class="fas fa-volume-up"></i></button>
+                        <button class="msg-action-btn" onclick="copyMessage(this)" data-text="${rawTextForAttr}" title="Copy Text"><i class="fas fa-copy"></i></button>
                     </div>
                 `;
-
                 contentDiv.innerHTML += actionsHtml;
-
                 if(typeEffect) {
                     scrollToBottom();
                     hljs.highlightAll();
@@ -750,13 +902,6 @@
             }
             return id;
         }
-
-        function typeWriter(element, html, actionsHtml = '') {
-            element.innerHTML = html + actionsHtml;
-            scrollToBottom();
-            hljs.highlightAll();
-        }
-
 
         function removeMessage(id) {
             const el = document.getElementById(id);
@@ -800,12 +945,6 @@
             item.onclick = () => { userInput.value = text; sendMessage(); }
             list.prepend(item);
         }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
-
-        function toggleTTS() { }
 
         if ('webkitSpeechRecognition' in window) {
             const recognition = new webkitSpeechRecognition();
