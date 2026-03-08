@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipu - Interactive Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght=700&display=swap" rel="stylesheet">
+    <title>Shepu - Interactive Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         /* CSS Variables */
         :root {
@@ -78,28 +78,28 @@
         }
         .hero h1 {
             font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; color: var(--primary-color); text-shadow: 2px 2px 12px #000;
-            letter-spacing: 2px; overflow: hidden; white-space: nowrap; 
+            letter-spacing: 2px; overflow: hidden; white-space: nowrap;
             border-right: 3px solid var(--primary-color); animation: blink-caret 0.75s step-end infinite;
         }
         .hero p {
             font-size: clamp(1rem, 2vw, 1.25rem); margin-bottom: 30px; color: var(--text-light);
             text-shadow: 1px 1px 6px #000; letter-spacing: 1px;
         }
-        
+
         /* Interactive Buttons (3D Tilt & Ripple) */
         .hero .btn {
             padding: 15px 30px; margin: 10px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: #000; text-decoration: none; font-weight: bold; border-radius: 50px;
-            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; 
-            display: inline-block; box-shadow: 0 4px 15px rgba(255,221,0,0.5); 
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            display: inline-block; box-shadow: 0 4px 15px rgba(255,221,0,0.5);
             border: none; font-size: 18px;
             transform-style: preserve-3d; perspective: 1000px; position: relative;
             overflow: hidden; cursor: pointer;
         }
         .hero .btn:hover, .hero .btn:focus {
             box-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
-            transform: translateY(-4px) translateZ(10px); 
+            transform: translateY(-4px) translateZ(10px);
         }
 
         /* Button Ripple Effect CSS */
@@ -118,7 +118,7 @@
             from, to { border-color: transparent }
             50% { border-color: var(--primary-color); }
         }
-        
+
         /* Scroll Reveal Class */
         .reveal {
             opacity: 0; transform: translateY(20px);
@@ -143,7 +143,7 @@
         .skills h2 { font-size: 38px; margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
         .skill-card {
             display: inline-block; background: rgba(34,34,34,0.6); padding: 25px 35px; margin: 15px;
-            border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; 
+            border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
             width: 200px; position: relative; overflow: hidden; backdrop-filter: blur(5px);
             transform-style: preserve-3d;
         }
@@ -176,14 +176,14 @@
             color: var(--primary-color); font-size: 20px; cursor: pointer; transition: transform 0.2s;
         }
         .detail-close:hover { transform: scale(1.2); }
-        
+
         /* AI Button Style */
         #shepu-ai-button {
             width: 46px; height: 46px; background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
             border: 2px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); position: fixed;
             top: 120px; right: 20px; border-radius: 50%; display: flex; justify-content: center;
             align-items: center; cursor: pointer; text-decoration: none; z-index: 9999; transition: 0.4s ease;
-            box-shadow: 0 0 15px rgba(0, 234, 255, 0.5); 
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.5);
         }
         #shepu-ai-button:hover {
             transform: scale(1.25) rotate(8deg);
@@ -206,7 +206,7 @@
 
         /* Footer */
         footer { text-align: center; padding: 25px; background-color: #000; color: #aaa; font-size: 14px; border-top: 1px solid #333; }
-        
+
         /* Responsive Hero Text */
         @media(max-width: 480px){
             .hero h1 { font-size: 2rem; }
@@ -258,7 +258,7 @@
 
     <section class="about reveal" id="about">
         <h2>About Me</h2>
-        <p class="reveal-content">আমি Shareharjan Shepu, একজন passionate coder এবং tech enthusiast। আমি HTML, CSS, JavaScript, Python, Kali Linux এবং AI chatbot development এ দক্ষ। এই ওয়েবসাইটে আমার কাজ, অ্যাপস এবং প্রজেক্টগুলি দেখানো হয়েছে। আমার লক্ষ্য হলো বন্ধু এবং professionalদের কাছে একটি clean ও impressive portfolio প্রদর্শন করা।</p>
+        <p class="reveal">আমি Shareharjan Shepu, একজন passionate coder এবং tech enthusiast। আমি HTML, CSS, JavaScript, Python, Kali Linux এবং AI chatbot development এ দক্ষ। এই ওয়েবসাইটে আমার কাজ, অ্যাপস এবং প্রজেক্টগুলি দেখানো হয়েছে। আমার লক্ষ্য হলো বন্ধু এবং professionalদের কাছে একটি clean ও impressive portfolio প্রদর্শন করা।</p>
     </section>
 
     <section class="skills" id="apps">
@@ -296,13 +296,13 @@
     </footer>
 
     <script>
-        // Device Detection 
+        // Device Detection
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-        
+
         // Haptic Feedback (Mobile Only)
         function triggerHapticFeedback() {
             if (isMobile && navigator.vibrate) {
-                navigator.vibrate(50); 
+                navigator.vibrate(50);
             }
         }
 
@@ -331,12 +331,12 @@
         function toggleMenu(){
             const navLinks = document.getElementById('nav-links');
             navLinks.classList.toggle('show');
-            triggerHapticFeedback(); 
+            triggerHapticFeedback();
         }
 
         // Scroll Logic (Progress Bar & Navbar)
         const navbar = document.getElementById('navbar');
-        const progressBar = document.getElementById('progressBar'); 
+        const progressBar = document.getElementById('progressBar');
 
         window.addEventListener('scroll', () => {
             // Navbar logic
@@ -363,22 +363,22 @@
         }
 
         skillCards.forEach(card => {
-            
+
             const openDetail = () => {
                 const skill = card.getAttribute('data-skill');
                 const detail = card.getAttribute('data-detail');
-                
+
                 detailTitle.textContent = skill;
                 detailContent.textContent = detail;
                 detailBox.classList.add('show');
-                detailBox.focus(); 
-                triggerHapticFeedback(); 
+                detailBox.focus();
+                triggerHapticFeedback();
             };
 
             card.addEventListener('click', openDetail);
-            
+
             card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') { 
+                if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     openDetail();
                 }
@@ -403,12 +403,12 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); 
+                    observer.unobserve(entry.target);
                 }
             });
         }, {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px' 
+            rootMargin: '0px 0px -50px 0px'
         });
 
         const revealElements = document.querySelectorAll('.reveal');
@@ -430,22 +430,22 @@
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((localY - centerY) / centerY) * 10; 
-            const rotateY = ((localX - centerX) / centerX) * -10; 
+            const rotateX = ((localY - centerY) / centerY) * 10;
+            const rotateY = ((localX - centerX) / centerX) * -10;
 
             button.style.transform = `
-                perspective(1000px) 
-                rotateX(${rotateX}deg) 
+                perspective(1000px)
+                rotateX(${rotateX}deg)
                 rotateY(${rotateY}deg)
                 translateZ(5px)
             `;
-            button.style.transition = 'none'; 
+            button.style.transition = 'none';
         }
 
         // FUNCTION: Reset Tilt Effect
         function resetTilt(button) {
-            button.style.transform = 'translateY(-4px) translateZ(10px)'; 
-            button.style.transition = 'transform 0.4s ease-in-out'; 
+            button.style.transform = '';
+            button.style.transition = 'transform 0.4s ease-in-out';
         }
 
 
@@ -461,15 +461,15 @@
             // Reset Tilt
             button.addEventListener('mouseleave', () => resetTilt(button));
             button.addEventListener('touchend', () => resetTilt(button));
-            
+
             // Ripple & Haptics
             button.addEventListener('click', function (e) {
-                triggerHapticFeedback(); 
+                triggerHapticFeedback();
 
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 this.querySelectorAll('.ripple').forEach(r => r.remove());
 
                 const ripple = document.createElement('span');
@@ -494,7 +494,7 @@
                 dot.style.width = '3px';
                 dot.style.height = '3px';
                 dot.style.borderRadius = '50%';
-                dot.style.background = 'var(--info-color)'; 
+                dot.style.background = 'var(--info-color)';
                 dot.style.boxShadow = '0 0 5px var(--info-color), 0 0 10px var(--info-color)';
                 dot.style.pointerEvents = 'none';
                 dot.style.zIndex = '9998';
@@ -502,7 +502,7 @@
                 dot.style.top = e.clientY + 'px';
                 dot.style.opacity = '1';
                 dot.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                
+
                 document.body.appendChild(dot);
 
                 setTimeout(() => {
@@ -510,8 +510,8 @@
                     dot.style.transform = 'scale(0)';
                     setTimeout(() => {
                         dot.remove();
-                    }, 500); 
-                }, 100); 
+                    }, 500);
+                }, 100);
             });
         }
     </script>
