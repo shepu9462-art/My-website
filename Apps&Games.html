@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shepu's Gallery</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght{700}&family=Lato:wght{400;700}&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
 <style>
@@ -17,17 +16,21 @@
     --bg-light: #2c0f4e;
     --card-bg: rgba(255, 255, 255, 0.05);
     --text-color: #e0e0e0;
-
     /* New Cube Colors */
     --cube-color: #00eaff;
     --cube-glow: #00ffff;
 }
 
-* {margin:0; padding:0; box-sizing:border-box; font-family:'Lato', sans-serif;}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Lato', sans-serif; }
 
-/* 2. Custom Cursor Hide Default */
+/* Custom Cursor Hide Default */
 html {
     cursor: none;
+}
+
+/* Fix cursor for inputs so users can see where they type */
+input[type="text"] {
+    cursor: text;
 }
 
 body {
@@ -47,9 +50,9 @@ body {
 }
 
 @keyframes gradientBG {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
 }
 
 h1 {
@@ -63,8 +66,8 @@ h1 {
 }
 
 @keyframes neonGlow {
-    from {text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);}
-    to {text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);}
+    from { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color); }
+    to { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
 }
 
 .navbar {
@@ -164,7 +167,6 @@ h1 {
     width: 100%;
     justify-items: center;
     position: relative;
-    cursor: grab;
     padding: 0 10px;
 }
 
@@ -199,6 +201,7 @@ h1 {
     filter: blur(8px);
     border-radius: 15px;
 }
+
 .game-card:hover::before {
     opacity: 0.25;
 }
@@ -269,18 +272,20 @@ h1 {
     text-transform:uppercase;
     font-size: 0.75rem;
 }
+
 .download-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color);
     background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
 }
+
 @keyframes gradientMove {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
 }
 
-/* 3. Custom Neon Cursor Style */
+/* Custom Neon Cursor Style */
 .neon-cursor {
     position: fixed;
     width: 20px;
@@ -292,7 +297,7 @@ h1 {
     transition: width 0.3s, height 0.3s, border-color 0.3s;
     z-index: 10000;
     box-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 242, 254, 0.5);
-    mix-blend-mode: screen; /* Blends nicely with dark background */
+    mix-blend-mode: screen;
 }
 .neon-cursor.hovered {
     width: 40px;
@@ -301,33 +306,18 @@ h1 {
     box-shadow: 0 0 15px var(--secondary-color), 0 0 30px rgba(247, 37, 133, 0.6);
 }
 
-/* --- Responsive & Loader Styles (Unchanged but included for completeness) --- */
+/* Responsive & Loader Styles */
 @media(max-width: 1100px) {
-    .gallery {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    .gallery { grid-template-columns: repeat(4, 1fr); }
 }
 @media(max-width: 850px) {
-    .gallery {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    .gallery { grid-template-columns: repeat(3, 1fr); }
 }
 @media(max-width: 576px) {
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    .game-card{
-        max-width: 100%;
-        height: auto;
-    }
-    .download-btn{
-        padding: 5px 10px;
-        font-size: 0.7rem;
-    }
-    .game-card h2{
-        font-size: 0.9rem;
-    }
+    .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .game-card { max-width: 100%; height: auto; }
+    .download-btn { padding: 5px 10px; font-size: 0.7rem; }
+    .game-card h2 { font-size: 0.9rem; }
     .navbar { padding: 10px; }
     .hamburger { display: block; }
     .nav-links {
@@ -342,17 +332,14 @@ h1 {
         overflow: hidden;
         transition: height 0.4s ease;
     }
-    .nav-links.active {
-        height: 250px;
-    }
+    .nav-links.active { height: 250px; }
     .nav-links li { text-align: center; margin: 5px 0; }
     .nav-links a { display: block; width: 90%; margin: 5px auto; }
     .search-container { margin: 0 10px; order: -1; }
     #search-input { width: 150px; }
     #search-input:focus { width: 200px; }
-    h1{font-size:2rem;}
-
-    /* 4. Disable Custom Cursor on Mobile */
+    h1 { font-size:2rem; }
+    /* Disable Custom Cursor on Mobile */
     html { cursor: default; }
     .neon-cursor { display: none; }
 }
@@ -413,12 +400,7 @@ h1 {
     border-radius: 2px;
     transform: rotate(-45deg);
 }
-.smart-chat-icon .line {
-    height: 2px;
-    width: 70%;
-    background: #fff;
-    border-radius: 2px;
-}
+.smart-chat-icon .line { height: 2px; width: 70%; background: #fff; border-radius: 2px; }
 .smart-chat-icon .line:nth-child(2) { width: 60%; }
 .smart-chat-icon .line:nth-child(3) { width: 45%; }
 
@@ -481,7 +463,6 @@ h1 {
     background-size: 10px 10px;
     transition: transform 0.1s;
 }
-
 .cube .front  { transform: rotateY(0deg) translateZ(50px); }
 .cube .back   { transform: rotateY(180deg) translateZ(50px); }
 .cube .right  { transform: rotateY(90deg) translateZ(50px); }
@@ -510,8 +491,6 @@ h1 {
     0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
     50% { transform: translateX(-50%) scale(1.1); opacity: 0.3; }
 }
-/* --- Loader Styles End --- */
-
 </style>
 </head>
 <body>
@@ -537,182 +516,188 @@ h1 {
     </nav>
 
     <a href="ai.html" id="shepu-ai-button">
-    <div class="ai-core">
-        <div class="smart-chat-icon">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
+        <div class="ai-core">
+            <div class="smart-chat-icon">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
         </div>
-    </div>
-</a>
+    </a>
 
     <div id="shepu-loader">
-    <div class="loader-content">
-        <h1 class="shepu-text">Shepu</h1>
-        <div class="cube-wrapper">
-            <div class="cube">
-                <div class="face front"></div>
-                <div class="face back"></div>
-                <div class="face right"></div>
-                <div class="face left"></div>
-                <div class="face top"></div>
-                <div class="face bottom"></div>
+        <div class="loader-content">
+            <h1 class="shepu-text">Shepu</h1>
+            <div class="cube-wrapper">
+                <div class="cube">
+                    <div class="face front"></div>
+                    <div class="face back"></div>
+                    <div class="face right"></div>
+                    <div class="face left"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                </div>
+                <div class="cube-shadow"></div>
             </div>
-            <div class="cube-shadow"></div>
         </div>
     </div>
-</div>
 
-<h1><i class="fas fa-gamepad"></i> Shepu's Gallery</h1>
+    <h1><i class="fas fa-gamepad"></i> Shepu's Gallery</h1>
 
-<div class="gallery">
-    <div class="game-card" data-aos="fade-up" data-aos-delay="0">
-        <img src="Ai.png" alt="Game 1" loading="lazy">
-        <h2>Shepu-OfflineAI</h2>
-        <div class="card-info"></div>
-        <a href="https://skshepu58-dot.github.io/Shepu/wai.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+    <div class="gallery">
+        <div class="game-card" data-aos="fade-up" data-aos-delay="0">
+            <img src="Ai.png" alt="Game 1" loading="lazy">
+            <h2>Shepu-OfflineAI</h2>
+            <div class="card-info"></div>
+            <a href="https://skshepu58-dot.github.io/Shepu/wai.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+        </div>
+        <div class="game-card" data-aos="fade-up" data-aos-delay="300">
+            <img src="SAM.png" alt="Shepu AutoM" loading="lazy">
+            <h2>Shepu AutoM</h2>
+            <div class="card-info"></div>
+            <a href="https://skshepu58-dot.github.io/Shepu/ShepuAM.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+        </div>
+        <div class="game-card" data-aos="fade-up" data-aos-delay="100">
+            <img src="snake.png" alt="Game 2" loading="lazy">
+            <h2>Snake</h2>
+            <div class="card-info"></div>
+            <a href="https://skshepu58-dot.github.io/Shepu/ws.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+        </div>
+        <div class="game-card" data-aos="fade-up" data-aos-delay="200">
+            <img src="pass.png" alt="Game 3" loading="lazy">
+            <h2>Shepu-passGenerator</h2>
+            <div class="card-info"></div>
+            <a href="pass.html" class="download-btn"><i class="fas fa-download"></i> Try Now!</a>
+        </div>
+        <div class="game-card" data-aos="fade-up" data-aos-delay="400">
+            <img src="Ai.png" alt="Shepu Ai lite" loading="lazy">
+            <h2>Shepu Ai lite(web)</h2>
+            <div class="card-info"></div>
+            <a href="ai.html" class="download-btn"><i class="fas fa-download"></i>Try now!</a>
+        </div>
+        <div class="game-card" data-aos="fade-up" data-aos-delay="400">
+            <img src="pce.png" alt="Run python" loading="lazy">
+            <h2>Run python</h2>
+            <div class="card-info"></div>
+            <a href="pce.html" class="download-btn"><i class="fas fa-download"></i>Try now!</a>
+        </div>
     </div>
-    <div class="game-card" data-aos="fade-up" data-aos-delay="100">
-        <img src="snake.png" alt="Game 2" loading="lazy">
-        <h2>Snake</h2>
-        <div class="card-info"></div>
-        <a href="https://skshepu58-dot.github.io/Shepu/ws.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
-    </div>
-    <div class="game-card" data-aos="fade-up" data-aos-delay="200">
-        <img src="pass.png" alt="Game 3" loading="lazy">
-        <h2>Shepu-passGenerator</h2>
-        <div class="card-info"></div>
-        <a href="pass.html" class="download-btn"><i class="fas fa-download"></i> Try Now!</a>
-    </div>
-    <div class="game-card" data-aos="fade-up" data-aos-delay="300">
-        <img src="SAM.png" alt="Shepu AutoM" loading="lazy">
-        <h2>Shepu AutoM</h2>
-        <div class="card-info"></div>
-        <a href="https://skshepu58-dot.github.io/Shepu/ShepuAM.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
-    </div>
-      <div class="game-card" data-aos="fade-up" data-aos-delay="400">
-        <img src="Ai.png" alt="Shepu Ai lite" loading="lazy">
-        <h2>Shepu Ai lite(web)</h2>
-        <div class="card-info"></div>
-        <a href="ai.html" class="download-btn"><i class="fas fa-download"></i>Try now!</a>
-    </div>
-    <div class="game-card" data-aos="fade-up" data-aos-delay="400">
-        <img src="pce.png" alt="Run python" loading="lazy">
-        <h2>Run python</h2>
-        <div class="card-info"></div>
-        <a href="pce.html" class="download-btn"><i class="fas fa-download"></i>Try now!</a>
-    </div>
-</div>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-    // 8. AOS Initialization
-    AOS.init({
-        duration: 800, // animation duration
-        once: true,    // animate only once
-        easing: 'ease-in-out-back' // smooth animation
-    });
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // AOS Initialization
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out-back'
+        });
 
-    // Hide loader with smooth fade-out after 1 second
-    window.addEventListener("load", function(){
-        setTimeout(() => {
-            document.getElementById("shepu-loader").classList.add("fade-out");
-        }, 1000);
-    });
+        // Hide loader with smooth fade-out after 1 second
+        window.addEventListener("load", function(){
+            setTimeout(() => {
+                document.getElementById("shepu-loader").classList.add("fade-out");
+            }, 1000);
+        });
 
-    // Hamburger Menu Toggle Function
-    function toggleMenu() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.toggle('active');
-    }
+        // Hamburger Menu Toggle Function
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
 
-    // Search Functionality
-    function filterCards() {
-        const input = document.getElementById('search-input');
-        const filter = input.value.toUpperCase();
-        const gallery = document.querySelector('.gallery');
-        const cards = gallery.getElementsByClassName('game-card');
+        // Auto Close Mobile Menu on Link Click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('nav-links');
+                if(navLinks.classList.contains('active')){
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
 
-        for (let i = 0; i < cards.length; i++) {
-            const h2 = cards[i].querySelector("h2");
-            const txtValue = h2.textContent || h2.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
+        // Search Functionality
+        function filterCards() {
+            const input = document.getElementById('search-input');
+            const filter = input.value.toUpperCase();
+            const gallery = document.querySelector('.gallery');
+            const cards = gallery.getElementsByClassName('game-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const h2 = cards[i].querySelector("h2");
+                const txtValue = h2.textContent || h2.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
             }
         }
-    }
 
-    // 9. Custom Cursor JavaScript Logic (Only runs on PC)
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        const neonCursor = document.getElementById('neon-cursor');
-        const interactiveElements = document.querySelectorAll('a, button, input, .download-btn, .game-card, .hamburger, #shepu-ai-button');
+        // Custom Cursor JavaScript Logic (Only runs on PC)
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            const neonCursor = document.getElementById('neon-cursor');
+            const interactiveElements = document.querySelectorAll('a, button, input, .download-btn, .game-card, .hamburger, #shepu-ai-button');
 
-        document.addEventListener('mousemove', (e) => {
-            neonCursor.style.left = e.clientX + 'px';
-            neonCursor.style.top = e.clientY + 'px';
-        });
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                neonCursor.classList.add('hovered');
+            document.addEventListener('mousemove', (e) => {
+                neonCursor.style.left = e.clientX + 'px';
+                neonCursor.style.top = e.clientY + 'px';
             });
-            el.addEventListener('mouseleave', () => {
-                neonCursor.classList.remove('hovered');
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    neonCursor.classList.add('hovered');
+                });
+                el.addEventListener('mouseleave', () => {
+                    neonCursor.classList.remove('hovered');
+                });
+            });
+        }
+
+        // PC Tilt effect
+        const cards = document.querySelectorAll('.game-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                if(window.matchMedia("(hover: hover) and (pointer: fine)").matches){
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.transform = `rotateY(${(x - rect.width/2)/20}deg) rotateX(${(rect.height/2 - y)/20}deg) translateY(-8px) scale(1.05)`;
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Modified to reset smoothly without completely breaking the CSS hover state
+                card.style.transform = '';
+            });
+
+            // Mobile tap toggle info
+            card.addEventListener('click', () => {
+                if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
+                    card.classList.toggle('show-info');
+                }
             });
         });
-    }
 
-
-    // PC Tilt effect (Unchanged)
-    const cards = document.querySelectorAll('.game-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-            if(window.matchMedia("(hover: hover) and (pointer: fine)").matches){
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.transform = `rotateY(${(x - rect.width/2)/20}deg) rotateX(${(rect.height/2 - y)/20}deg) translateY(-8px) scale(1.05)`;
-            }
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) rotateY(0) rotateX(0) scale(1)';
+        // Click ripple effect
+        document.addEventListener('click', function(e){
+            const circle = document.createElement('div');
+            circle.style.position='absolute';
+            circle.style.width=circle.style.height='50px';
+            circle.style.left=(e.pageX-25)+'px';
+            circle.style.top=(e.pageY-25)+'px';
+            circle.style.background='rgba(255,255,255,0.2)';
+            circle.style.borderRadius='50%';
+            circle.style.pointerEvents='none';
+            circle.style.animation='ripple 0.6s ease-out';
+            document.body.appendChild(circle);
+            setTimeout(()=> circle.remove(),600);
         });
 
-        // Mobile tap toggle info
-        card.addEventListener('click', () => {
-            if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
-                card.classList.toggle('show-info');
-            }
-        });
-    });
+        // Ripple animation
+        const style = document.createElement('style');
+        style.innerHTML=`@keyframes ripple {0%{transform:scale(0);opacity:1;}100%{transform:scale(2);opacity:0;}}`;
+        document.head.appendChild(style);
 
-    // Click ripple effect (Unchanged)
-    document.addEventListener('click', function(e){
-        const circle = document.createElement('div');
-        circle.style.position='absolute';
-        circle.style.width=circle.style.height='50px';
-        circle.style.left=(e.pageX-25)+'px';
-        circle.style.top=(e.pageY-25)+'px';
-        circle.style.background='rgba(255,255,255,0.2)';
-        circle.style.borderRadius='50%';
-        circle.style.pointerEvents='none';
-        circle.style.animation='ripple 0.6s ease-out';
-        document.body.appendChild(circle);
-        setTimeout(()=> circle.remove(),600);
-    });
-
-    // Ripple animation (Unchanged)
-    const style = document.createElement('style');
-    style.innerHTML=`@keyframes ripple {0%{transform:scale(0);opacity:1;}100%{transform:scale(2);opacity:0;}}`;
-    document.head.appendChild(style);
-
-</script>
-
+    </script>
 </body>
 </html>
-
-
-
-
