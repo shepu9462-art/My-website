@@ -6,7 +6,6 @@
     <title>Shepu - Interactive Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables */
         :root {
             --primary-color: #ffdd00;
             --secondary-color: #ffc107;
@@ -17,11 +16,9 @@
             --info-color: #00eaff;
         }
 
-        /* Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
 
-        /* Progress Bar Style */
         #progressBar {
             position: fixed; top: 0; left: 0; width: 0%; height: 5px;
             background: linear-gradient(90deg, #ffdd00, #ffc107, #00eaff);
@@ -29,13 +26,11 @@
             box-shadow: 0 0 15px rgba(255, 221, 0, 0.8);
         }
 
-        /* Accessibility Focus Indicator */
         a:focus, .btn:focus, .skill-card:focus {
             outline: 3px solid var(--info-color); outline-offset: 4px;
             border-radius: 5px; transition: outline-color 0.2s;
         }
 
-        /* Navbar */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 10%; background-color: rgba(0,0,0,0.85); position: sticky; top: 0; z-index: 100;
@@ -58,10 +53,9 @@
         nav ul li a:hover { color: var(--primary-color); background: rgba(255,221,0,0.2); }
         nav ul li a.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
         
-        #auth-btn { background: var(--info-color); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
+        #auth-btn { background: var(--info-color); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
         #auth-btn:hover { background: #fff; color: #000; }
 
-        /* Mobile Menu */
         @media(max-width: 768px){
             nav ul { flex-direction: column; background-color: rgba(0,0,0,0.95); position: absolute; top: 70px; right: 0; width: 200px; display: none; padding: 20px 0; border-radius: 0 0 10px 10px; transition: all 0.5s ease; }
             nav ul.show { display: flex; animation: fadeInMenu 0.5s forwards; }
@@ -71,7 +65,6 @@
         @media(min-width:769px){ .menu-toggle { display: none; } }
         @keyframes fadeInMenu { 0% {opacity:0;} 100% {opacity:1;} }
 
-        /* Hero Section */
         .hero {
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             padding: 120px 20px;
@@ -89,7 +82,6 @@
             text-shadow: 1px 1px 6px #000; letter-spacing: 1px;
         }
 
-        /* Interactive Buttons (3D Tilt & Ripple) */
         .hero .btn {
             padding: 15px 30px; margin: 10px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -105,7 +97,6 @@
             transform: translateY(-4px) translateZ(10px);
         }
 
-        /* Button Ripple Effect CSS */
         .hero .btn .ripple {
             position: absolute; border-radius: 50%; transform: translate(-50%, -50%);
             animation: ripple-effect 0.6s linear; background-color: rgba(0, 0, 0, 0.3);
@@ -116,13 +107,11 @@
             100% { width: 200%; height: 200%; opacity: 0; }
         }
 
-        /* Typewriter Animation Keyframes */
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: var(--primary-color); }
         }
 
-        /* Scroll Reveal Class */
         .reveal {
             opacity: 0; transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -131,7 +120,6 @@
             opacity: 1; transform: translateY(0);
         }
 
-        /* About Me Section */
         .about { padding: 80px 10%; text-align: center; background: linear-gradient(to right, var(--bg-dark), var(--bg-light)); }
         .about h2 { font-size: 38px; margin-bottom: 20px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
         .about p {
@@ -141,7 +129,6 @@
         }
         .about p:hover { transform: scale(1.03); }
 
-        /* Skills Section */
         .skills { padding: 80px 10%; text-align: center; background: var(--bg-dark); }
         .skills h2 { font-size: 38px; margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
         .skill-card {
@@ -160,7 +147,6 @@
         .skill-card h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 20px; }
         .skill-card p { color: var(--text-muted); font-size: 16px; }
 
-        /* Skill Detail Popover */
         .skill-detail-box {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: var(--bg-light); border: 2px solid var(--primary-color);
@@ -180,7 +166,6 @@
         }
         .detail-close:hover { transform: scale(1.2); }
 
-        /* Login Modal */
         #login-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
             display: none; justify-content: center; align-items: center; z-index: 10000;
@@ -197,7 +182,6 @@
         .google-btn img { width: 20px; }
         .close-login { position: absolute; top: 10px; right: 15px; color: var(--text-muted); cursor: pointer; font-size: 20px; }
 
-        /* AI Button Style */
         #shepu-ai-button {
             width: 46px; height: 46px; background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
             border: 2px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); position: fixed;
@@ -224,10 +208,8 @@
         .smart-chat-icon .line:nth-child(2) { width: 60%; }
         .smart-chat-icon .line:nth-child(3) { width: 45%; }
 
-        /* Footer */
         footer { text-align: center; padding: 25px; background-color: #000; color: #aaa; font-size: 14px; border-top: 1px solid #333; }
 
-        /* Responsive Hero Text */
         @media(max-width: 480px){
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
@@ -255,7 +237,7 @@
         <div class="login-box">
             <span class="close-login" onclick="closeLoginModal()">✖</span>
             <h2>Please Sign In</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">এই পেজে যেতে লগইন প্রয়োজন</p>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">এই পেজে যেতে লগইন প্রয়োজন</p>
             <button class="google-btn" id="google-login-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
                 Continue with Google
@@ -325,14 +307,13 @@
     </section>
 
     <footer id="contact">
-        &copy; 2025 Shareharjan Shepu. All rights reserved.
+        &copy; 2026 Shareharjan Shepu. All rights reserved.
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Your specific Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCHPYjwTREM_a--1MIbLtULMMVBJoAi_wU",
             authDomain: "shepu-6d550.firebaseapp.com",
@@ -353,7 +334,8 @@
         const loginModal = document.getElementById("login-modal");
         const googleLoginBtn = document.getElementById("google-login-btn");
 
-        // Auth State Listener (Keeps user logged in)
+        setPersistence(auth, browserLocalPersistence).catch(() => {});
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 isLoggedIn = true;
@@ -368,7 +350,6 @@
             }
         });
 
-        // Login / Logout Handler
         authBtn.addEventListener("click", () => {
             if (isLoggedIn) {
                 signOut(auth);
@@ -377,15 +358,16 @@
             }
         });
 
-        // Google Sign In
         googleLoginBtn.addEventListener("click", () => {
-            signInWithPopup(auth, provider).catch((error) => {
-                console.error("Login Error:", error.message);
-                alert("Login failed! Please check console for details.");
-            });
+            setPersistence(auth, browserLocalPersistence)
+                .then(() => {
+                    return signInWithPopup(auth, provider);
+                })
+                .catch(() => {
+                    alert("Login failed! Please check console for details.");
+                });
         });
 
-        // Restrict Links
         document.querySelectorAll(".restricted-link").forEach(link => {
             link.addEventListener("click", (e) => {
                 if (!isLoggedIn) {
@@ -396,7 +378,6 @@
             });
         });
 
-        // Expose function to close modal globally
         window.closeLoginModal = () => {
             loginModal.style.display = "none";
             pendingHref = "";
@@ -404,7 +385,6 @@
     </script>
 
     <script>
-        // Device Detection
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
         function triggerHapticFeedback() {
@@ -413,18 +393,17 @@
             }
         }
 
-        // Typewriter Effect
         const textToType = "Hi, I'm Shareharjan Shepu";
         const typewriterElement = document.getElementById('typewriter-text');
         let i = 0;
         const speed = 100;
 
         function typeWriter() {
-            if (i < textToType.length) {
+            if (typewriterElement && i < textToType.length) {
                 typewriterElement.innerHTML += textToType.charAt(i);
                 i++;
                 setTimeout(typeWriter, speed);
-            } else {
+            } else if (typewriterElement) {
                 typewriterElement.style.borderRight = 'none';
             }
         }
@@ -433,14 +412,12 @@
             typeWriter();
         });
 
-        // Navbar mobile toggle
         function toggleMenu(){
             const navLinks = document.getElementById('nav-links');
             navLinks.classList.toggle('show');
             triggerHapticFeedback();
         }
 
-        // Scroll Logic
         const navbar = document.getElementById('navbar');
         const progressBar = document.getElementById('progressBar');
 
@@ -456,7 +433,6 @@
             progressBar.style.width = progress + '%';
         });
 
-        // Skill Detail Popover
         const skillCards = document.querySelectorAll('.skill-card');
         const detailBox = document.getElementById('skillDetailBox');
         const detailTitle = document.getElementById('detailTitle');
@@ -498,7 +474,6 @@
             }
         });
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -511,13 +486,12 @@
         const revealElements = document.querySelectorAll('.reveal');
         revealElements.forEach(el => observer.observe(el));
 
-        // Button Ripple & Tilt
         const heroButtons = document.querySelectorAll('.hero .btn');
 
         function handleTilt(e, button) {
             const rect = button.getBoundingClientRect();
-            const x = (e.clientX !== undefined) ? e.clientX : e.touches[0].clientX;
-            const y = (e.clientY !== undefined) ? e.clientY : e.touches[0].clientY;
+            const x = (e.clientX !== undefined) ? e.clientX : (e.touches ? e.touches[0].clientX : 0);
+            const y = (e.clientY !== undefined) ? e.clientY : (e.touches ? e.touches[0].clientY : 0);
             const localX = x - rect.left;
             const localY = y - rect.top;
             const centerX = rect.width / 2;
@@ -537,15 +511,15 @@
         heroButtons.forEach(button => {
             button.addEventListener('mousemove', (e) => handleTilt(e, button));
             button.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) handleTilt(e, button);
+                if (e.touches && e.touches.length > 0) handleTilt(e, button);
             });
             button.addEventListener('mouseleave', () => resetTilt(button));
             button.addEventListener('touchend', () => resetTilt(button));
             button.addEventListener('click', function (e) {
                 triggerHapticFeedback();
                 const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                const x = (e.clientX || 0) - rect.left;
+                const y = (e.clientY || 0) - rect.top;
                 this.querySelectorAll('.ripple').forEach(r => r.remove());
                 const ripple = document.createElement('span');
                 ripple.classList.add('ripple');
@@ -556,9 +530,14 @@
             });
         });
 
-        // Mouse Trail
+        // Throttle cursor effect to prevent memory leaks/lag
         if (!isMobile) {
+            let lastDraw = 0;
             document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastDraw < 50) return; // Allow max ~20 points per second
+                lastDraw = now;
+
                 const dot = document.createElement('div');
                 dot.style.position = 'fixed';
                 dot.style.width = '3px';
@@ -571,13 +550,14 @@
                 dot.style.left = e.clientX + 'px';
                 dot.style.top = e.clientY + 'px';
                 dot.style.opacity = '1';
-                dot.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                dot.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
                 document.body.appendChild(dot);
-                setTimeout(() => {
+                
+                requestAnimationFrame(() => {
                     dot.style.opacity = '0';
                     dot.style.transform = 'scale(0)';
-                    setTimeout(() => dot.remove(), 500);
-                }, 100);
+                    setTimeout(() => dot.remove(), 400);
+                });
             });
         }
     </script>
