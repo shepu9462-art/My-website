@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shepu - Interactive Portfolio</title>
+    <link rel="icon" type="image/png" href="home.png" sizes="any">
+    <link rel="apple-touch-icon" href="home.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,22 +17,18 @@
             --text-muted: #ccc;
             --info-color: #00eaff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
-
         #progressBar {
             position: fixed; top: 0; left: 0; width: 0%; height: 5px;
             background: linear-gradient(90deg, #ffdd00, #ffc107, #00eaff);
             z-index: 10000; transition: width 0.1s linear;
             box-shadow: 0 0 15px rgba(255, 221, 0, 0.8);
         }
-
         a:focus, .btn:focus, .skill-card:focus {
             outline: 3px solid var(--info-color); outline-offset: 4px;
             border-radius: 5px; transition: outline-color 0.2s;
         }
-
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 10%; background-color: rgba(0,0,0,0.85); position: sticky; top: 0; z-index: 100;
@@ -52,10 +50,26 @@
         nav ul li a:hover::after { width: 100%; }
         nav ul li a:hover { color: var(--primary-color); background: rgba(255,221,0,0.2); }
         nav ul li a.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
-        
-        #auth-btn { background: var(--info-color); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        #auth-btn:hover { background: #fff; color: #000; }
-
+        #auth-btn { 
+            background: linear-gradient(135deg, #ffdd00, #ff9900); 
+            color: #111; 
+            padding: 8px 22px; 
+            border-radius: 30px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(255, 221, 0, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        #auth-btn:hover { 
+            background: rgba(0,0,0,0.6); 
+            color: var(--primary-color); 
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(255, 221, 0, 0.8);
+            transform: translateY(-2px);
+        }
         @media(max-width: 768px){
             nav ul { flex-direction: column; background-color: rgba(0,0,0,0.95); position: absolute; top: 70px; right: 0; width: 200px; display: none; padding: 20px 0; border-radius: 0 0 10px 10px; transition: all 0.5s ease; }
             nav ul.show { display: flex; animation: fadeInMenu 0.5s forwards; }
@@ -64,7 +78,6 @@
         }
         @media(min-width:769px){ .menu-toggle { display: none; } }
         @keyframes fadeInMenu { 0% {opacity:0;} 100% {opacity:1;} }
-
         .hero {
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             padding: 120px 20px;
@@ -81,7 +94,6 @@
             font-size: clamp(1rem, 2vw, 1.25rem); margin-bottom: 30px; color: var(--text-light);
             text-shadow: 1px 1px 6px #000; letter-spacing: 1px;
         }
-
         .hero .btn {
             padding: 15px 30px; margin: 10px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -96,7 +108,6 @@
             box-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
             transform: translateY(-4px) translateZ(10px);
         }
-
         .hero .btn .ripple {
             position: absolute; border-radius: 50%; transform: translate(-50%, -50%);
             animation: ripple-effect 0.6s linear; background-color: rgba(0, 0, 0, 0.3);
@@ -106,12 +117,10 @@
             0% { width: 0; height: 0; opacity: 1; }
             100% { width: 200%; height: 200%; opacity: 0; }
         }
-
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: var(--primary-color); }
         }
-
         .reveal {
             opacity: 0; transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -119,7 +128,6 @@
         .reveal.active {
             opacity: 1; transform: translateY(0);
         }
-
         .about { padding: 80px 10%; text-align: center; background: linear-gradient(to right, var(--bg-dark), var(--bg-light)); }
         .about h2 { font-size: 38px; margin-bottom: 20px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
         .about p {
@@ -128,7 +136,6 @@
             box-shadow: 0 4px 15px rgba(255, 221, 0, 0.2); transition: transform 0.3s;
         }
         .about p:hover { transform: scale(1.03); }
-
         .skills { padding: 80px 10%; text-align: center; background: var(--bg-dark); }
         .skills h2 { font-size: 38px; margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
         .skill-card {
@@ -146,7 +153,6 @@
         .skill-card:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 15px 25px rgba(255, 221, 0, 0.5), 0 0 40px rgba(0, 234, 255, 0.2); }
         .skill-card h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 20px; }
         .skill-card p { color: var(--text-muted); font-size: 16px; }
-
         .skill-detail-box {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: var(--bg-light); border: 2px solid var(--primary-color);
@@ -165,7 +171,6 @@
             color: var(--primary-color); font-size: 20px; cursor: pointer; transition: transform 0.2s;
         }
         .detail-close:hover { transform: scale(1.2); }
-
         #login-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
             display: none; justify-content: center; align-items: center; z-index: 10000;
@@ -181,7 +186,6 @@
         }
         .google-btn img { width: 20px; }
         .close-login { position: absolute; top: 10px; right: 15px; color: var(--text-muted); cursor: pointer; font-size: 20px; }
-
         #shepu-ai-button {
             width: 46px; height: 46px; background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
             border: 2px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); position: fixed;
@@ -207,9 +211,7 @@
         .smart-chat-icon .line { height: 2px; width: 70%; background: #fff; border-radius: 2px; }
         .smart-chat-icon .line:nth-child(2) { width: 60%; }
         .smart-chat-icon .line:nth-child(3) { width: 45%; }
-
         footer { text-align: center; padding: 25px; background-color: #000; color: #aaa; font-size: 14px; border-top: 1px solid #333; }
-
         @media(max-width: 480px){
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
@@ -219,23 +221,21 @@
 </head>
 <body>
     <div id="progressBar"></div>
-
     <nav id="navbar">
         <div class="logo">Shepu</div>
         <ul id="nav-links">
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="contact.html" class="restricted-link">Contact</a></li>
-            <li><a href="Apps&Games.html">Apps & Games</a></li>
-            <li><a href="Buy.html">Shop</a></li>
+            <li><a href="Apps&Games.html" class="restricted-link">Apps & Games</a></li>
+            <li><a href="Buy.html" class="restricted-link">Shop</a></li>
             <li><a href="About.html" class="restricted-link">About</a></li>
             <li><a id="auth-btn">Sign In</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu-toggle">☰</div>
     </nav>
-
     <div id="login-modal">
         <div class="login-box">
-            <span class="close-login" onclick="closeLoginModal()">✖</span>
+            <span class="close-login">✖</span>
             <h2>Please Sign In</h2>
             <p style="margin-bottom: 20px; color: var(--text-muted);">এই পেজে যেতে লগইন প্রয়োজন</p>
             <button class="google-btn" id="google-login-btn">
@@ -244,7 +244,6 @@
             </button>
         </div>
     </div>
-
     <a href="ai.html" id="shepu-ai-button">
         <div class="ai-core">
             <div class="smart-chat-icon">
@@ -254,28 +253,24 @@
             </div>
         </div>
     </a>
-
     <div class="skill-detail-box" id="skillDetailBox" aria-modal="true" role="dialog">
-        <button class="detail-close" onclick="closeSkillDetail()" aria-label="Close Skill Detail">X</button>
+        <button class="detail-close" aria-label="Close Skill Detail">X</button>
         <h4 id="detailTitle"></h4>
         <p id="detailContent"></p>
     </div>
-
     <section class="hero" id="home">
         <h1 id="typewriter-text"></h1>
         <p class="reveal">Aspiring Programmer & Tech Enthusiast | HTML, CSS, JS, C, Python, Kali Linux, AI Chatbots</p>
         <div class="reveal">
-            <a href="Apps&Games.html" class="btn">Explore Apps and Games</a>
-            <a href="Buy.html" class="btn">Shop Now & Get Offer</a>
+            <a href="Apps&Games.html" class="btn restricted-link">Explore Apps and Games</a>
+            <a href="Buy.html" class="btn restricted-link">Shop Now & Get Offer</a>
             <a href="contact.html" class="btn restricted-link">Contact Me</a>
         </div>
     </section>
-
     <section class="about reveal" id="about">
         <h2>About Me</h2>
         <p class="reveal">আমি Shareharjan Shepu, একজন passionate coder এবং tech enthusiast। আমি HTML, CSS, JavaScript, Python, Kali Linux এবং AI chatbot development এ দক্ষ। এই ওয়েবসাইটে আমার কাজ, অ্যাপস এবং প্রজেক্টগুলি দেখানো হয়েছে। আমার লক্ষ্য হলো বন্ধু এবং professionalদের কাছে একটি clean ও impressive portfolio প্রদর্শন করা।</p>
     </section>
-
     <section class="skills" id="apps">
         <h2 class="reveal">My Skills</h2>
         <div id="skills-container">
@@ -305,7 +300,6 @@
             </div>
         </div>
     </section>
-
     <footer id="contact">
         &copy; 2026 Shareharjan Shepu. All rights reserved.
     </footer>
@@ -333,26 +327,73 @@
         const authBtn = document.getElementById("auth-btn");
         const loginModal = document.getElementById("login-modal");
         const googleLoginBtn = document.getElementById("google-login-btn");
+        const navbar = document.getElementById("navbar");
+        const progressBar = document.getElementById("progressBar");
+        const typewriterElement = document.getElementById("typewriter-text");
+        const skillCards = document.querySelectorAll(".skill-card");
+        const detailBox = document.getElementById("skillDetailBox");
+        const detailTitle = document.getElementById("detailTitle");
+        const detailContent = document.getElementById("detailContent");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const closeLoginBtn = document.querySelector(".close-login");
+        const closeDetailBtn = document.querySelector(".detail-close");
+        const heroButtons = document.querySelectorAll(".hero .btn");
+        const restrictedLinks = document.querySelectorAll(".restricted-link");
 
-        setPersistence(auth, browserLocalPersistence).catch(() => {});
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+        function triggerHapticFeedback() {
+            if (isMobile && navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function closeLoginModal() {
+            loginModal.style.display = "none";
+            pendingHref = "";
+        }
+
+        function closeSkillDetail() {
+            detailBox.classList.remove("show");
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById("nav-links");
+            navLinks.classList.toggle("show");
+            triggerHapticFeedback();
+        }
+
+        const textToType = "Hi, I'm Shareharjan Shepu";
+        let i = 0;
+        const speed = 100;
+        function typeWriter() {
+            if (i < textToType.length) {
+                typewriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                typewriterElement.style.borderRight = "none";
+            }
+        }
+
+        setPersistence(auth, browserLocalPersistence).catch(console.warn);
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 isLoggedIn = true;
-                authBtn.innerText = "Logout";
+                authBtn.textContent = "Logout";
                 loginModal.style.display = "none";
-                if(pendingHref) {
+                if (pendingHref) {
                     window.location.href = pendingHref;
+                    pendingHref = "";
                 }
             } else {
                 isLoggedIn = false;
-                authBtn.innerText = "Sign In";
+                authBtn.textContent = "Sign In";
             }
         });
 
         authBtn.addEventListener("click", () => {
             if (isLoggedIn) {
-                signOut(auth);
+                signOut(auth).catch(console.error);
             } else {
                 loginModal.style.display = "flex";
             }
@@ -360,15 +401,14 @@
 
         googleLoginBtn.addEventListener("click", () => {
             setPersistence(auth, browserLocalPersistence)
-                .then(() => {
-                    return signInWithPopup(auth, provider);
-                })
-                .catch(() => {
-                    alert("Login failed! Please check console for details.");
+                .then(() => signInWithPopup(auth, provider))
+                .catch(err => {
+                    console.error("Login error:", err);
+                    alert("Login failed. Please try again or check console.");
                 });
         });
 
-        document.querySelectorAll(".restricted-link").forEach(link => {
+        restrictedLinks.forEach(link => {
             link.addEventListener("click", (e) => {
                 if (!isLoggedIn) {
                     e.preventDefault();
@@ -378,188 +418,123 @@
             });
         });
 
-        window.closeLoginModal = () => {
-            loginModal.style.display = "none";
-            pendingHref = "";
-        }
-    </script>
-
-    <script>
-        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-        function triggerHapticFeedback() {
-            if (isMobile && navigator.vibrate) {
-                navigator.vibrate(50);
-            }
-        }
-
-        const textToType = "Hi, I'm Shareharjan Shepu";
-        const typewriterElement = document.getElementById('typewriter-text');
-        let i = 0;
-        const speed = 100;
-
-        function typeWriter() {
-            if (typewriterElement && i < textToType.length) {
-                typewriterElement.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            } else if (typewriterElement) {
-                typewriterElement.style.borderRight = 'none';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            typeWriter();
-        });
-
-        function toggleMenu(){
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('show');
-            triggerHapticFeedback();
-        }
-
-        const navbar = document.getElementById('navbar');
-        const progressBar = document.getElementById('progressBar');
-
-        window.addEventListener('scroll', () => {
-            if(window.scrollY > 50){
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-
-            const totalHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = (window.scrollY / totalHeight) * 100;
-            progressBar.style.width = progress + '%';
-        });
-
-        const skillCards = document.querySelectorAll('.skill-card');
-        const detailBox = document.getElementById('skillDetailBox');
-        const detailTitle = document.getElementById('detailTitle');
-        const detailContent = document.getElementById('detailContent');
-
-        function closeSkillDetail() {
-            detailBox.classList.remove('show');
-        }
+        if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+        if (closeLoginBtn) closeLoginBtn.addEventListener("click", closeLoginModal);
+        if (closeDetailBtn) closeDetailBtn.addEventListener("click", closeSkillDetail);
 
         skillCards.forEach(card => {
             const openDetail = () => {
-                const skill = card.getAttribute('data-skill');
-                const detail = card.getAttribute('data-detail');
+                const skill = card.getAttribute("data-skill");
+                const detail = card.getAttribute("data-detail");
                 detailTitle.textContent = skill;
                 detailContent.textContent = detail;
-                detailBox.classList.add('show');
+                detailBox.classList.add("show");
                 detailBox.focus();
                 triggerHapticFeedback();
             };
-
-            card.addEventListener('click', openDetail);
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
+            card.addEventListener("click", openDetail);
+            card.addEventListener("keydown", e => {
+                if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     openDetail();
                 }
             });
         });
 
-        window.addEventListener('click', (e) => {
-            if (detailBox.classList.contains('show') && !detailBox.contains(e.target) && !e.target.closest('.skill-card')) {
-                 closeSkillDetail();
+        document.addEventListener("click", e => {
+            if (detailBox.classList.contains("show") && 
+                !detailBox.contains(e.target) && 
+                !e.target.closest(".skill-card")) {
+                closeSkillDetail();
+            }
+        });
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") {
+                if (detailBox.classList.contains("show")) closeSkillDetail();
+                if (loginModal.style.display === "flex") closeLoginModal();
             }
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && detailBox.classList.contains('show')) {
-                closeSkillDetail();
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
             }
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+            progressBar.style.width = `${progress}%`;
         });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    entry.target.classList.add("active");
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => observer.observe(el));
-
-        const heroButtons = document.querySelectorAll('.hero .btn');
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
         function handleTilt(e, button) {
             const rect = button.getBoundingClientRect();
-            const x = (e.clientX !== undefined) ? e.clientX : (e.touches ? e.touches[0].clientX : 0);
-            const y = (e.clientY !== undefined) ? e.clientY : (e.touches ? e.touches[0].clientY : 0);
-            const localX = x - rect.left;
-            const localY = y - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((localY - centerY) / centerY) * 10;
-            const rotateY = ((localX - centerX) / centerX) * -10;
-
-            button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`;
-            button.style.transition = 'none';
+            const x = e.clientX ?? (e.touches?.[0]?.clientX ?? 0);
+            const y = e.clientY ?? (e.touches?.[0]?.clientY ?? 0);
+            const rotateX = ((y - rect.top - rect.height / 2) / (rect.height / 2)) * -10;
+            const rotateY = ((x - rect.left - rect.width / 2) / (rect.width / 2)) * 10;
+            button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+            button.style.transition = "none";
         }
-
         function resetTilt(button) {
-            button.style.transform = '';
-            button.style.transition = 'transform 0.4s ease-in-out';
+            button.style.transform = "";
+            button.style.transition = "transform 0.4s ease-in-out";
         }
 
-        heroButtons.forEach(button => {
-            button.addEventListener('mousemove', (e) => handleTilt(e, button));
-            button.addEventListener('touchmove', (e) => {
-                if (e.touches && e.touches.length > 0) handleTilt(e, button);
-            });
-            button.addEventListener('mouseleave', () => resetTilt(button));
-            button.addEventListener('touchend', () => resetTilt(button));
-            button.addEventListener('click', function (e) {
+        heroButtons.forEach(btn => {
+            btn.addEventListener("mousemove", e => handleTilt(e, btn));
+            btn.addEventListener("touchmove", e => handleTilt(e, btn));
+            btn.addEventListener("mouseleave", () => resetTilt(btn));
+            btn.addEventListener("touchend", () => resetTilt(btn));
+
+            btn.addEventListener("click", e => {
                 triggerHapticFeedback();
-                const rect = this.getBoundingClientRect();
+                const rect = btn.getBoundingClientRect();
                 const x = (e.clientX || 0) - rect.left;
                 const y = (e.clientY || 0) - rect.top;
-                this.querySelectorAll('.ripple').forEach(r => r.remove());
-                const ripple = document.createElement('span');
-                ripple.classList.add('ripple');
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                this.appendChild(ripple);
-                ripple.addEventListener('animationend', () => ripple.remove());
+                const ripple = document.createElement("span");
+                ripple.classList.add("ripple");
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                btn.appendChild(ripple);
+                ripple.addEventListener("animationend", () => ripple.remove());
             });
         });
 
-        // Throttle cursor effect to prevent memory leaks/lag
         if (!isMobile) {
             let lastDraw = 0;
-            document.addEventListener('mousemove', (e) => {
+            document.addEventListener("mousemove", e => {
                 const now = Date.now();
-                if (now - lastDraw < 50) return; // Allow max ~20 points per second
+                if (now - lastDraw < 50) return;
                 lastDraw = now;
 
-                const dot = document.createElement('div');
-                dot.style.position = 'fixed';
-                dot.style.width = '3px';
-                dot.style.height = '3px';
-                dot.style.borderRadius = '50%';
-                dot.style.background = 'var(--info-color)';
-                dot.style.boxShadow = '0 0 5px var(--info-color), 0 0 10px var(--info-color)';
-                dot.style.pointerEvents = 'none';
-                dot.style.zIndex = '9998';
-                dot.style.left = e.clientX + 'px';
-                dot.style.top = e.clientY + 'px';
-                dot.style.opacity = '1';
-                dot.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                const dot = document.createElement("div");
+                dot.style.cssText = `
+                    position: fixed; width: 3px; height: 3px; border-radius: 50%;
+                    background: var(--info-color); box-shadow: 0 0 5px var(--info-color), 0 0 10px var(--info-color);
+                    pointer-events: none; z-index: 9998; left: ${e.clientX}px; top: ${e.clientY}px;
+                    opacity: 1; transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+                `;
                 document.body.appendChild(dot);
-                
                 requestAnimationFrame(() => {
-                    dot.style.opacity = '0';
-                    dot.style.transform = 'scale(0)';
+                    dot.style.opacity = "0";
+                    dot.style.transform = "scale(0)";
                     setTimeout(() => dot.remove(), 400);
                 });
             });
         }
+
+        typeWriter();
     </script>
 </body>
 </html>
