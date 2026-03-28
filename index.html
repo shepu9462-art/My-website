@@ -19,29 +19,34 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+
         #progressBar {
             position: fixed; top: 0; left: 0; width: 0%; height: 5px;
             background: linear-gradient(90deg, #ffdd00, #ffc107, #00eaff);
             z-index: 10000; transition: width 0.1s linear;
             box-shadow: 0 0 15px rgba(255, 221, 0, 0.8);
         }
+
         a:focus, .btn:focus, .skill-card:focus, .project-card:focus {
             outline: 3px solid var(--info-color); outline-offset: 4px;
             border-radius: 5px; transition: outline-color 0.2s;
         }
+
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 10%; background-color: rgba(0,0,0,0.85); position: sticky; top: 0; z-index: 100;
+            padding: 18px 5%; background-color: rgba(0,0,0,0.85); position: sticky; top: 0; z-index: 1000;
             backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,221,0,0.2);
             transition: background 0.3s, box-shadow 0.3s;
         }
         nav.scrolled { background-color: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.7); }
-        nav .logo { font-family: 'Orbitron', sans-serif; font-size: 28px; color: var(--primary-color); letter-spacing: 1px; }
-        nav ul { display: flex; list-style: none; align-items: center; }
-        nav ul li { margin-left: 25px; }
+        nav .logo { font-family: 'Orbitron', sans-serif; font-size: clamp(24px, 5vw, 28px); color: var(--primary-color); letter-spacing: 1px; }
+        nav ul { 
+            display: flex; list-style: none; align-items: center; gap: 22px; 
+        }
+        nav ul li { margin: 0; }
         nav ul li a {
             text-decoration: none; color: var(--text-light); font-weight: bold;
-            transition: 0.3s; position: relative; padding: 5px 10px; border-radius: 5px; cursor: pointer;
+            transition: 0.3s; position: relative; padding: 8px 14px; border-radius: 5px; cursor: pointer;
         }
         nav ul li a::after {
             content: ''; position: absolute; width: 0; height: 2px; background: var(--primary-color);
@@ -50,6 +55,7 @@
         nav ul li a:hover::after { width: 100%; }
         nav ul li a:hover { color: var(--primary-color); background: rgba(255,221,0,0.2); }
         nav ul li a.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
+
         #auth-btn {
             background: linear-gradient(135deg, #ffdd00, #ff9900);
             color: #111;
@@ -70,23 +76,31 @@
             box-shadow: 0 0 20px rgba(255, 221, 0, 0.8);
             transform: translateY(-2px);
         }
-        @media(max-width: 768px){
-            nav ul { flex-direction: column; background-color: rgba(0,0,0,0.95); position: absolute; top: 70px; right: 0; width: 200px; display: none; padding: 20px 0; border-radius: 0 0 10px 10px; transition: all 0.5s ease; }
-            nav ul.show { display: flex; animation: fadeInMenu 0.5s forwards; }
-            nav ul li { margin: 15px 0; }
-            .menu-toggle { display: block; cursor: pointer; font-size: 28px; color: var(--primary-color); }
-        }
-        @media(min-width:769px){ .menu-toggle { display: none; } }
-        @keyframes fadeInMenu { 0% {opacity:0;} 100% {opacity:1;} }
 
-        /* GLOBAL BUTTON STYLES (fixed) */
+        .menu-toggle { display: none; cursor: pointer; font-size: clamp(24px, 6vw, 28px); color: var(--primary-color); }
+
+        @media(max-width: 768px){
+            nav { padding: 18px 5%; }
+            nav ul { 
+                position: absolute; top: 70px; left: 0; right: 0; 
+                flex-direction: column; background-color: rgba(0,0,0,0.98); 
+                padding: 25px 20px; gap: 18px; display: none; 
+                border-radius: 0 0 12px 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+                z-index: 999;
+            }
+            nav ul.show { display: flex; animation: fadeInMenu 0.4s forwards; }
+            .menu-toggle { display: block; }
+        }
+        @keyframes fadeInMenu { 0% {opacity:0; transform:translateY(-10px);} 100% {opacity:1; transform:translateY(0);} }
+
         .btn {
-            padding: 15px 30px; margin: 10px;
+            padding: clamp(14px, 3vw, 18px) clamp(25px, 4vw, 32px);
+            margin: 8px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: #000; text-decoration: none; font-weight: bold; border-radius: 50px;
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
             display: inline-block; box-shadow: 0 4px 15px rgba(255,221,0,0.5);
-            border: none; font-size: 18px;
+            border: none; font-size: clamp(16px, 3vw, 18px);
             transform-style: preserve-3d; perspective: 1000px; position: relative;
             overflow: hidden; cursor: pointer;
         }
@@ -106,24 +120,26 @@
 
         .hero {
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            padding: 120px 20px;
+            padding: clamp(100px, 15vw, 160px) 5%;
             background: linear-gradient(180deg, rgba(17,17,17,0.7), rgba(17,17,17,0.3)),
                         url('https://images.unsplash.com/photo-1537432376769-00a13db848a0?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
             background-attachment: fixed;
+            min-height: 100vh;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; color: var(--primary-color); text-shadow: 2px 2px 12px #000;
+            font-size: clamp(2.4rem, 6vw, 4rem); margin-bottom: 20px; color: var(--primary-color); text-shadow: 2px 2px 12px #000;
             letter-spacing: 2px; overflow: hidden; white-space: nowrap;
             border-right: 3px solid var(--primary-color); animation: blink-caret 0.75s step-end infinite;
         }
         .hero p {
-            font-size: clamp(1rem, 2vw, 1.25rem); margin-bottom: 30px; color: var(--text-light);
-            text-shadow: 1px 1px 6px #000; letter-spacing: 1px;
+            font-size: clamp(1rem, 3vw, 1.25rem); margin-bottom: 30px; color: var(--text-light);
+            text-shadow: 1px 1px 6px #000; letter-spacing: 1px; max-width: 720px;
         }
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: var(--primary-color); }
         }
+
         .reveal {
             opacity: 0; transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -131,20 +147,33 @@
         .reveal.active {
             opacity: 1; transform: translateY(0);
         }
-        .about { padding: 100px 10%; text-align: center; background: linear-gradient(to right, var(--bg-dark), var(--bg-light)); }
-        .about h2 { font-size: 38px; margin-bottom: 30px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
+
+        .about { padding: 100px 5%; text-align: center; background: linear-gradient(to right, var(--bg-dark), var(--bg-light)); }
+        .about h2 { font-size: clamp(30px, 5vw, 38px); margin-bottom: 30px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
         .about p {
-            font-size: 18px; color: var(--text-muted); max-width: 850px; margin: 0 auto 25px; line-height: 1.8;
+            font-size: clamp(16px, 2.5vw, 18px); color: var(--text-muted); max-width: 850px; margin: 0 auto 25px; line-height: 1.8;
             background: rgba(255, 221, 0, 0.05); padding: 30px; border-radius: 15px;
             box-shadow: 0 4px 15px rgba(255, 221, 0, 0.2); transition: transform 0.3s;
         }
         .about p:hover { transform: scale(1.03); }
-        .skills { padding: 100px 10%; text-align: center; background: var(--bg-dark); }
-        .skills h2 { font-size: 38px; margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
-        .skill-card {
-            display: inline-block; background: rgba(34,34,34,0.6); padding: 25px 35px; margin: 15px;
-            border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
-            width: 200px; position: relative; overflow: hidden; backdrop-filter: blur(5px);
+
+        .skills, .projects { padding: 100px 5%; text-align: center; background: var(--bg-dark); }
+        .skills h2, .projects h2 { font-size: clamp(30px, 5vw, 38px); margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
+
+        #skills-container, #projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .skill-card, .project-card {
+            display: flex; flex-direction: column; justify-content: center;
+            background: rgba(34,34,34,0.6); padding: 25px 20px; border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+            width: 100%; min-height: 180px; position: relative; overflow: hidden; backdrop-filter: blur(5px);
             transform-style: preserve-3d;
         }
         .skill-card::before {
@@ -153,33 +182,28 @@
             transition: 0.5s;
         }
         .skill-card:hover::before { left: 0; }
-        .skill-card:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 15px 25px rgba(255, 221, 0, 0.5), 0 0 40px rgba(0, 234, 255, 0.2); }
-        .skill-card h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 20px; }
-        .skill-card p { color: var(--text-muted); font-size: 16px; }
-
-        /* PROJECTS SECTION */
-        .projects { padding: 100px 10%; text-align: center; background: var(--bg-dark); }
-        .projects h2 { font-size: 38px; margin-bottom: 50px; color: var(--primary-color); letter-spacing: 1px; }
-        .project-card {
-            display: inline-block; background: rgba(34,34,34,0.6); padding: 30px 35px; margin: 15px;
-            border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
-            width: 280px; position: relative; overflow: hidden; backdrop-filter: blur(5px);
+        .skill-card:hover, .project-card:hover {
+            transform: translateY(-15px) scale(1.05); 
+            box-shadow: 0 15px 25px rgba(255, 221, 0, 0.5), 0 0 40px rgba(0, 234, 255, 0.2);
         }
-        .project-card:hover {
-            transform: translateY(-18px) scale(1.05);
-            box-shadow: 0 20px 30px rgba(255, 221, 0, 0.6), 0 0 40px rgba(0, 234, 255, 0.3);
-        }
-        .project-card h3 { color: var(--primary-color); margin-bottom: 12px; font-size: 21px; }
-        .project-card p { color: var(--text-muted); font-size: 16px; line-height: 1.7; }
+        .skill-card h3, .project-card h3 { color: var(--primary-color); margin-bottom: 10px; font-size: clamp(18px, 3vw, 20px); }
+        .skill-card p, .project-card p { color: var(--text-muted); font-size: clamp(14px, 2.5vw, 16px); line-height: 1.7; }
 
-        /* CONTACT FORM SECTION (fixed) */
+        @media (max-width: 768px) {
+            .skills, .projects { padding: 80px 5%; }
+            #skills-container, #projects-container { gap: 18px; }
+        }
+        @media (max-width: 480px) {
+            .skill-card, .project-card { padding: 22px 18px; min-height: 160px; }
+        }
+
         .contact {
-            padding: 120px 10%; text-align: center;
+            padding: 120px 5%; text-align: center;
             background: linear-gradient(to right, var(--bg-light), var(--bg-dark));
         }
-        .contact h2 { font-size: 38px; margin-bottom: 20px; color: var(--primary-color); letter-spacing: 1px; }
+        .contact h2 { font-size: clamp(30px, 5vw, 38px); margin-bottom: 20px; color: var(--primary-color); letter-spacing: 1px; }
         .contact > p {
-            font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto 45px;
+            font-size: clamp(16px, 2.5vw, 18px); color: var(--text-muted); max-width: 700px; margin: 0 auto 45px;
         }
         .contact-form {
             max-width: 680px; margin: 0 auto;
@@ -196,7 +220,7 @@
             background: rgba(255,255,255,0.05);
             border: 2px solid var(--primary-color);
             color: var(--text-light);
-            font-size: 16px;
+            font-size: clamp(15px, 2.5vw, 16px);
             border-radius: 12px;
             transition: all 0.3s ease;
         }
@@ -219,9 +243,8 @@
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: var(--bg-light); border: 2px solid var(--primary-color);
             padding: 25px; border-radius: 10px; box-shadow: 0 0 30px var(--info-color);
-            z-index: 1000; max-width: 90%; width: 400px; text-align: left;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-            transform: translate(-50%, -45%) scale(0.95);
+            z-index: 10000; max-width: 92%; width: 420px; text-align: left;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .skill-detail-box.show {
             opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1);
@@ -229,29 +252,31 @@
         .skill-detail-box h4 { color: var(--info-color); margin-bottom: 10px; font-size: 24px; }
         .skill-detail-box p { color: var(--text-light); font-size: 16px; }
         .detail-close {
-            position: absolute; top: 10px; right: 10px; background: none; border: none;
-            color: var(--primary-color); font-size: 20px; cursor: pointer; transition: transform 0.2s;
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            color: var(--primary-color); font-size: 22px; cursor: pointer; transition: transform 0.2s;
         }
         .detail-close:hover { transform: scale(1.2); }
+
         #login-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
-            display: none; justify-content: center; align-items: center; z-index: 10000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
+            display: none; justify-content: center; align-items: center; z-index: 10001;
         }
         .login-box {
-            background: var(--bg-light); padding: 40px; border-radius: 10px; border: 2px solid var(--primary-color);
-            text-align: center; box-shadow: 0 0 30px rgba(255,221,0,0.3); position: relative;
+            background: var(--bg-light); padding: clamp(30px, 5vw, 40px); border-radius: 12px; border: 2px solid var(--primary-color);
+            text-align: center; box-shadow: 0 0 30px rgba(255,221,0,0.3); position: relative; width: 90%; max-width: 420px;
         }
         .login-box h2 { color: var(--text-light); margin-bottom: 20px; }
         .google-btn {
-            background: #fff; color: #444; padding: 10px 20px; border: none; border-radius: 5px;
+            background: #fff; color: #444; padding: 12px 24px; border: none; border-radius: 8px;
             font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 auto;
         }
-        .google-btn img { width: 20px; }
-        .close-login { position: absolute; top: 10px; right: 15px; color: var(--text-muted); cursor: pointer; font-size: 20px; }
+        .google-btn img { width: 22px; }
+        .close-login { position: absolute; top: 12px; right: 18px; color: var(--text-muted); cursor: pointer; font-size: 22px; }
+
         #shepu-ai-button {
-            width: 46px; height: 46px; background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
+            width: 52px; height: 52px; background: radial-gradient(circle at 30% 30%, #00eaff, #006eff, #b300ff);
             border: 2px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); position: fixed;
-            top: 120px; right: 20px; border-radius: 50%; display: flex; justify-content: center;
+            top: 100px; right: 20px; border-radius: 50%; display: flex; justify-content: center;
             align-items: center; cursor: pointer; text-decoration: none; z-index: 9999; transition: 0.4s ease;
             box-shadow: 0 0 15px rgba(0, 234, 255, 0.5);
         }
@@ -259,29 +284,32 @@
             transform: scale(1.25) rotate(8deg);
             box-shadow: 0 0 25px #00eaff, 0 0 45px #b300ff, 0 0 60px rgb(255,255,255);
         }
-        .ai-core { width: 26px; height: 26px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        @media (max-width: 480px) {
+            #shepu-ai-button { top: 90px; right: 15px; }
+        }
+
+        .ai-core { width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
         .smart-chat-icon {
-            width: 18px; height: 15px; border-radius: 6px; border: 2px solid #fff; position: relative;
+            width: 20px; height: 16px; border-radius: 6px; border: 2px solid #fff; position: relative;
             display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 2px 3px;
             background: rgba(255,255,255,0.08);
         }
         .smart-chat-icon::after {
-            content: ""; position: absolute; bottom: -4px; left: 5px; width: 6px; height: 6px;
+            content: ""; position: absolute; bottom: -4px; left: 6px; width: 6px; height: 6px;
             border-left: 2px solid #fff; border-bottom: 2px solid #fff; border-radius: 2px;
             transform: rotate(-45deg);
         }
         .smart-chat-icon .line { height: 2px; width: 70%; background: #fff; border-radius: 2px; }
         .smart-chat-icon .line:nth-child(2) { width: 60%; }
         .smart-chat-icon .line:nth-child(3) { width: 45%; }
+
         footer {
-            text-align: center; padding: 40px 10%; background-color: #000; color: #aaa;
+            text-align: center; padding: 40px 5%; background-color: #000; color: #aaa;
             font-size: 14px; border-top: 1px solid #333;
         }
-        @media(max-width: 480px){
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            .btn { padding: 12px 24px; font-size: 16px; margin: 8px; }
-            .project-card, .skill-card { width: 90%; }
+
+        .hero .reveal:last-child {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; max-width: 720px; margin: 0 auto;
         }
     </style>
 </head>
@@ -299,6 +327,7 @@
         </ul>
         <div class="menu-toggle">☰</div>
     </nav>
+
     <div id="login-modal">
         <div class="login-box">
             <span class="close-login">✖</span>
@@ -310,6 +339,7 @@
             </button>
         </div>
     </div>
+
     <a href="ai.html" id="shepu-ai-button">
         <div class="ai-core">
             <div class="smart-chat-icon">
@@ -319,6 +349,7 @@
             </div>
         </div>
     </a>
+
     <div class="skill-detail-box" id="skillDetailBox" aria-modal="true" role="dialog">
         <button class="detail-close" aria-label="Close Skill Detail">X</button>
         <h4 id="detailTitle"></h4>
@@ -371,7 +402,6 @@
         </div>
     </section>
 
-    <!-- FEATURED PROJECTS -->
     <section class="projects" id="projects">
         <h2 class="reveal">Featured Projects</h2>
         <div id="projects-container">
@@ -389,7 +419,7 @@
             </div>
             <div class="project-card reveal">
                 <h3>Snake game</h3>
-                <p>A smart snake game with high quality,, enjoy song ,,, have fun with snake agme and challenge with shepu.</p>
+                <p>A smart snake game with high quality,, enjoy song ,,, have fun with snake game and challenge with shepu.</p>
             </div>
             <div class="project-card reveal">
                 <h3>Shepu autoM</h3>
@@ -402,7 +432,6 @@
         </div>
     </section>
 
-    <!-- CONTACT FORM (last section before footer) -->
     <section class="contact" id="contact">
         <h2 class="reveal">Get In Touch</h2>
         <p class="reveal">আমার সাথে যোগাযোগ করুন! প্রজেক্ট, প্রশ্ন বা কোনো সাজেশন থাকলে নিচের ফর্মটি পূরণ করুন। আমি যত তাড়াতাড়ি সম্ভব উত্তর দেব।</p>
@@ -465,9 +494,9 @@
         const menuToggle = document.querySelector(".menu-toggle");
         const closeLoginBtn = document.querySelector(".close-login");
         const closeDetailBtn = document.querySelector(".detail-close");
-        const allButtons = document.querySelectorAll(".btn");           // FIXED: now includes form button too
+        const allButtons = document.querySelectorAll(".btn");
         const restrictedLinks = document.querySelectorAll(".restricted-link");
-
+        const navLinks = document.getElementById("nav-links");
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
         function triggerHapticFeedback() {
@@ -484,9 +513,14 @@
         }
 
         function toggleMenu() {
-            const navLinks = document.getElementById("nav-links");
             navLinks.classList.toggle("show");
             triggerHapticFeedback();
+        }
+
+        function closeMobileMenu() {
+            if (navLinks.classList.contains("show")) {
+                navLinks.classList.remove("show");
+            }
         }
 
         const textToType = "Hi, I'm Shareharjan Shepu";
@@ -532,18 +566,25 @@
                 .then(() => signInWithPopup(auth, provider))
                 .catch(err => {
                     console.error("Login error:", err);
-                    alert("Login failed. Please try again or check console.");
+                    alert("Login failed. Please try again.");
                 });
         });
 
         restrictedLinks.forEach(link => {
             link.addEventListener("click", (e) => {
+                closeMobileMenu();
                 if (!isLoggedIn) {
                     e.preventDefault();
                     pendingHref = link.getAttribute("href");
                     loginModal.style.display = "flex";
                 }
             });
+        });
+
+        document.addEventListener("click", (e) => {
+            if (navLinks.classList.contains("show") && !navbar.contains(e.target)) {
+                closeMobileMenu();
+            }
         });
 
         if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
@@ -570,12 +611,11 @@
         });
 
         document.addEventListener("click", e => {
-            if (detailBox.classList.contains("show") &&
-                !detailBox.contains(e.target) &&
-                !e.target.closest(".skill-card")) {
+            if (detailBox.classList.contains("show") && !detailBox.contains(e.target) && !e.target.closest(".skill-card")) {
                 closeSkillDetail();
             }
         });
+
         document.addEventListener("keydown", e => {
             if (e.key === "Escape") {
                 if (detailBox.classList.contains("show")) closeSkillDetail();
@@ -584,11 +624,7 @@
         });
 
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
             const totalHeight = document.body.scrollHeight - window.innerHeight;
             const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
             progressBar.style.width = `${progress}%`;
@@ -605,7 +641,6 @@
 
         document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-        // FIXED: Tilt + Ripple now works on ALL .btn (including form submit button)
         function handleTilt(e, button) {
             const rect = button.getBoundingClientRect();
             const x = e.clientX ?? (e.touches?.[0]?.clientX ?? 0);
@@ -625,7 +660,6 @@
             btn.addEventListener("touchmove", e => handleTilt(e, btn));
             btn.addEventListener("mouseleave", () => resetTilt(btn));
             btn.addEventListener("touchend", () => resetTilt(btn));
-
             btn.addEventListener("click", e => {
                 triggerHapticFeedback();
                 const rect = btn.getBoundingClientRect();
@@ -646,14 +680,8 @@
                 const now = Date.now();
                 if (now - lastDraw < 50) return;
                 lastDraw = now;
-
                 const dot = document.createElement("div");
-                dot.style.cssText = `
-                    position: fixed; width: 3px; height: 3px; border-radius: 50%;
-                    background: var(--info-color); box-shadow: 0 0 5px var(--info-color), 0 0 10px var(--info-color);
-                    pointer-events: none; z-index: 9998; left: ${e.clientX}px; top: ${e.clientY}px;
-                    opacity: 1; transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-                `;
+                dot.style.cssText = `position:fixed;width:3px;height:3px;border-radius:50%;background:var(--info-color);box-shadow:0 0 5px var(--info-color),0 0 10px var(--info-color);pointer-events:none;z-index:9998;left:${e.clientX}px;top:${e.clientY}px;opacity:1;transition:opacity 0.4s ease-out,transform 0.4s ease-out;`;
                 document.body.appendChild(dot);
                 requestAnimationFrame(() => {
                     dot.style.opacity = "0";
